@@ -58,8 +58,6 @@ jobs:
       # 6. Install Quarto
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: '1.5.57'
 
       # 7. Render the Quarto website
       - name: Render Quarto website
