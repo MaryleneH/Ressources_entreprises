@@ -1,0 +1,125 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Statistiques d'Entreprises"
+  description: "Formation complète aux statistiques sur les entreprises — Sources officielles, analyse de données et cas pratiques"
+  favicon: "assets/favicon.ico"
+  site-url: "https://marylenh.github.io/Ressources_entreprises"
+  repo-url: "https://github.com/MaryleneH/Ressources_entreprises"
+  repo-actions: [edit, issue]
+  open-graph: true
+
+  navbar:
+    logo: "assets/logo.svg"
+    logo-alt: "Logo Statistiques Entreprises"
+    title: "StatEntreprises"
+    pinned: true
+    background: primary
+    search: true
+    left:
+      - text: "Accueil"
+        href: index.qmd
+      - text: "Cours"
+        menu:
+          - text: "Introduction"
+            href: chapters/01-introduction.qmd
+          - text: "Concepts statistiques"
+            href: chapters/02-concepts.qmd
+          - text: "Sources françaises (Insee)"
+            href: chapters/03-sources-francaises.qmd
+          - text: "Sources européennes (Eurostat)"
+            href: chapters/04-sources-europeennes.qmd
+          - text: "Open Data & data.gouv.fr"
+            href: chapters/05-opendata.qmd
+          - text: "Analyse avec R"
+            href: chapters/06-analyse-r.qmd
+          - text: "Analyse avec Python"
+            href: chapters/07-analyse-python.qmd
+      - text: "Cas pratiques"
+        href: case-studies/index.qmd
+      - text: "Exercices"
+        href: exercises/index.qmd
+      - text: "Ressources"
+        href: resources/index.qmd
+    right:
+      - icon: github
+        href: "https://github.com/MaryleneH/Ressources_entreprises"
+        aria-label: "GitHub"
+
+  sidebar:
+    - title: "Formation"
+      style: "docked"
+      background: light
+      collapse-level: 1
+      contents:
+        - text: "🏠 Accueil"
+          href: index.qmd
+        - section: "📚 Cours"
+          contents:
+            - text: "1. Introduction"
+              href: chapters/01-introduction.qmd
+            - text: "2. Concepts"
+              href: chapters/02-concepts.qmd
+            - text: "3. Sources françaises"
+              href: chapters/03-sources-francaises.qmd
+            - text: "4. Sources européennes"
+              href: chapters/04-sources-europeennes.qmd
+            - text: "5. Open Data"
+              href: chapters/05-opendata.qmd
+            - text: "6. Analyse R"
+              href: chapters/06-analyse-r.qmd
+            - text: "7. Analyse Python"
+              href: chapters/07-analyse-python.qmd
+        - section: "🔬 Pratique"
+          contents:
+            - text: "Cas pratiques"
+              href: case-studies/index.qmd
+            - text: "Exercices"
+              href: exercises/index.qmd
+        - section: "📖 Références"
+          contents:
+            - text: "Ressources"
+              href: resources/index.qmd
+
+  page-footer:
+    left: |
+      Contenu basé sur des sources officielles : [Insee](https://www.insee.fr), [Eurostat](https://ec.europa.eu/eurostat), [data.gouv.fr](https://www.data.gouv.fr)
+    right: |
+      © 2024 — Formation Statistiques d'Entreprises — Licence [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+    background: dark
+
+  page-navigation: true
+  bread-crumbs: true
+
+  back-to-top-navigation: true
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: true
+    toc-depth: 3
+    toc-title: "Sur cette page"
+    toc-location: right
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    code-link: true
+    number-sections: true
+    smooth-scroll: true
+    highlight-style: github
+    fig-align: center
+    fig-cap-location: bottom
+    callout-appearance: simple
+    link-external-icon: true
+    link-external-newwindow: true
+    include-after-body: "assets/footer-scripts.html"
+
+execute:
+  freeze: auto
+  warning: false
+  message: false
+  echo: true

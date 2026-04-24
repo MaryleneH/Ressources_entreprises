@@ -1,0 +1,19 @@
+pays,iso2,nace,libelle_nace,annee,nb_entreprises,ca_milliards,va_milliards,personnes_occupees_milliers
+France,FR,C,Industrie manufacturière,2021,200000,800,225,3050
+Allemagne,DE,C,Industrie manufacturière,2021,285000,2200,720,10850
+Italie,IT,C,Industrie manufacturière,2021,450000,1000,265,5150
+Espagne,ES,C,Industrie manufacturière,2021,220000,590,155,2620
+Pologne,PL,C,Industrie manufacturière,2021,370000,430,110,3800
+Pays-Bas,NL,C,Industrie manufacturière,2021,90000,500,130,1030
+France,FR,J,Information et communication,2021,135000,225,108,960
+Allemagne,DE,J,Information et communication,2021,240000,520,230,2200
+Italie,IT,J,Information et communication,2021,160000,200,90,850
+Espagne,ES,J,Information et communication,2021,120000,150,68,680
+Pologne,PL,J,Information et communication,2021,100000,95,40,520
+Pays-Bas,NL,J,Information et communication,2021,80000,220,110,700
+France,FR,F,Construction,2021,340000,295,90,1650
+Allemagne,DE,F,Construction,2021,350000,510,150,2700
+Italie,IT,F,Construction,2021,620000,280,85,2200
+Espagne,ES,F,Construction,2021,280000,200,60,1150
+Pologne,PL,F,Construction,2021,320000,140,42,1400
+Pays-Bas,NL,F,Construction,2021,120000,200,58,750

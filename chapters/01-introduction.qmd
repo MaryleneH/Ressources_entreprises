@@ -1,0 +1,210 @@
+---
+title: "Introduction aux statistiques d'entreprises"
+subtitle: "Comprendre le rôle, les enjeux et les institutions"
+description: "Qu'est-ce que les statistiques d'entreprises ? À quoi servent-elles ? Qui les produit ? Ce premier chapitre pose les bases conceptuelles et institutionnelles de la formation."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [fondamentaux, institutions, débutant]
+image: "../assets/ch01-cover.png"
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Définir ce que sont les statistiques d'entreprises
+- Expliquer leur rôle dans la politique économique et la décision publique
+- Identifier les principales institutions productrices de statistiques (Insee, Eurostat, data.gouv.fr)
+- Distinguer les grandes catégories de statistiques d'entreprises
+:::
+
+## Qu'est-ce que les statistiques d'entreprises ?
+
+Les **statistiques d'entreprises** désignent l'ensemble des données quantitatives collectées, traitées et diffusées par des organismes officiels pour décrire l'activité économique des entreprises et des établissements.
+
+Ces statistiques portent notamment sur :
+
+- La **démographie d'entreprises** : créations, défaillances, survie
+- L'**emploi** : effectifs salariés, masse salariale
+- L'**activité économique** : chiffre d'affaires, valeur ajoutée, production
+- L'**investissement** : dépenses en immobilisations corporelles et incorporelles
+- La **structure** : taille des entreprises, secteurs d'activité, localisation
+
+::: {.callout-note}
+## 📖 Définition officielle
+
+Selon l'**INSEE**, les statistiques structurelles d'entreprises décrivent « la structure et l'activité économique des entreprises par secteur d'activité ». Elles sont produites à partir d'enquêtes statistiques et de sources administratives (déclarations fiscales et sociales).
+
+*Source : [Glossaire de l'INSEE](https://www.insee.fr/fr/metadonnees/definition)*
+:::
+
+## Pourquoi les statistiques d'entreprises sont-elles importantes ?
+
+### Pour la politique économique
+
+Les gouvernements et les institutions européennes s'appuient sur ces données pour :
+
+- Définir des politiques de soutien aux PME
+- Orienter les aides à l'investissement et à l'emploi
+- Suivre l'évolution de la compétitivité nationale et sectorielle
+- Évaluer l'impact des réformes fiscales ou sociales
+
+### Pour l'analyse économique
+
+Les économistes, chercheurs et analystes utilisent ces statistiques pour :
+
+- Étudier les déterminants de la croissance des entreprises
+- Analyser les dynamiques sectorielles et régionales
+- Comparer les structures économiques entre pays (grâce à l'harmonisation européenne)
+- Mesurer l'impact des chocs économiques (pandémie, crises financières)
+
+### Pour les entreprises elles-mêmes
+
+Les statistiques officielles permettent aux entreprises de :
+
+- Se **benchmarker** par rapport à leur secteur
+- Identifier des **marchés porteurs** ou des zones géographiques dynamiques
+- Préparer des **business plans** solidement étayés
+- Appuyer des demandes de **financement** ou d'aide publique
+
+::: {.callout-tip}
+## 💡 Exemple concret
+
+Une start-up souhaitant s'implanter dans le secteur de la restauration rapide (code NAF 5610B) peut consulter les statistiques de l'INSEE sur le nombre d'établissements, le chiffre d'affaires moyen et les effectifs employés dans ce secteur — données disponibles gratuitement sur [insee.fr](https://www.insee.fr).
+:::
+
+## Les grandes familles de statistiques d'entreprises
+
+On distingue généralement trois grandes familles :
+
+```{mermaid}
+flowchart TD
+    A[Statistiques d'entreprises] --> B[Statistiques\nstructurelles]
+    A --> C[Statistiques\nde court terme]
+    A --> D[Statistiques\ndémographiques]
+
+    B --> B1["Chiffre d'affaires annuel\nValeur ajoutée\nEmploi salarié\nInvestissement"]
+    C --> C1["Indices de chiffre d'affaires\nIndicateurs de production\nIndices de prix"]
+    D --> D1["Créations d'entreprises\nDéfaillances\nSurvie à 3 et 5 ans"]
+```
+
+| Famille | Fréquence | Exemples |
+|---------|-----------|----------|
+| **Structurelles** | Annuelle | ESANE, SBS Eurostat |
+| **Conjoncturelles** | Mensuelle / trimestrielle | Indices de CA, IPI |
+| **Démographiques** | Mensuelle / annuelle | Créations et défaillances |
+
+## Les principales institutions productrices
+
+### 🇫🇷 L'INSEE — Institut national de la statistique et des études économiques
+
+L'**INSEE** est la principale institution française productrice de statistiques publiques. Ses missions sont définies par la loi du 7 juin 1951 et s'inscrivent dans le cadre du **Système statistique européen (SSE)**.
+
+Pour les statistiques d'entreprises, l'INSEE produit notamment :
+
+- **ESANE** (Élaboration des Statistiques Annuelles d'Entreprises) : statistiques structurelles annuelles
+- **SIRENE** : répertoire de toutes les entreprises et établissements français
+- **FIBEN** (Fichier bancaire des entreprises) — en partenariat avec la Banque de France
+- Les **indices de chiffre d'affaires** par secteur (court terme)
+- Les données sur les **créations et défaillances** d'entreprises
+
+::: {.callout-note}
+## 📌 Ressource clé
+
+👉 **Site de l'INSEE** : [https://www.insee.fr/fr/statistiques?debut=0&theme=6](https://www.insee.fr/fr/statistiques?debut=0&theme=6)
+
+Section « Entreprises » → accès à toutes les publications et bases de données sur les entreprises.
+:::
+
+### 🇪🇺 Eurostat — Office statistique de l'Union européenne
+
+**Eurostat** est l'office statistique de l'Union européenne, chargé de produire des statistiques harmonisées pour les 27 États membres. Son rôle est de permettre la **comparaison entre pays** grâce à des méthodologies communes.
+
+Pour les entreprises, Eurostat publie notamment :
+
+- **SBS** (Structural Business Statistics) : statistiques structurelles harmonisées
+- **EBS** (European Business Statistics) : cadre rénové depuis 2021
+- **STS** (Short-term Statistics) : indices conjoncturels harmonisés
+- Des données sur la **démographie d'entreprises** et la **globalisation**
+
+::: {.callout-note}
+## 📌 Ressource clé
+
+👉 **Portail Eurostat** : [https://ec.europa.eu/eurostat/web/structural-business-statistics](https://ec.europa.eu/eurostat/web/structural-business-statistics)
+:::
+
+### 🔓 data.gouv.fr — Plateforme des données ouvertes françaises
+
+**data.gouv.fr** est la plateforme nationale des données publiques françaises, pilotée par la **Direction interministérielle du numérique (DINUM)**. Elle agrège des jeux de données provenant de nombreuses administrations.
+
+Pour les entreprises, on y trouve notamment :
+
+- Les données **SIRENE** en téléchargement libre
+- Les données de l'**Agence centrale des organismes de sécurité sociale (ACOSS)**
+- Des données sur les **aides aux entreprises** (France Relance, etc.)
+- Des données sectorielles de différents ministères
+
+::: {.callout-note}
+## 📌 Ressource clé
+
+👉 **Portail Open Data** : [https://www.data.gouv.fr/fr/topics/entreprises/](https://www.data.gouv.fr/fr/topics/entreprises/)
+:::
+
+## Le circuit de production des statistiques officielles
+
+```{mermaid}
+sequenceDiagram
+    participant E as Entreprises
+    participant A as Administrations<br/>(fisc, URSSAF)
+    participant I as INSEE
+    participant EU as Eurostat
+    participant U as Utilisateurs
+
+    E->>A: Déclarations fiscales et sociales
+    A->>I: Transmission des données administratives
+    I->>I: Traitement, redressement, publication
+    I->>EU: Transmission selon règlements UE
+    EU->>EU: Harmonisation et validation
+    EU->>U: Publications et base de données
+    I->>U: Publications et fichiers de données
+```
+
+::: {.callout-warning}
+## ⚠️ Délais de publication
+
+Les statistiques structurelles annuelles sont publiées avec un **décalage de 18 à 24 mois** par rapport à l'année de référence. Par exemple, les données 2022 d'ESANE sont publiées courant 2024. Pensez à vérifier les millésimes disponibles avant d'utiliser une source.
+:::
+
+## La réglementation européenne
+
+Depuis 2021, le cadre réglementaire européen des statistiques d'entreprises est défini par le **règlement EBS** (European Business Statistics, règlement UE 2019/2152). Ce règlement remplace plusieurs règlements antérieurs et modernise la production de statistiques d'entreprises au sein de l'UE.
+
+Principaux objectifs :
+- **Intégration** des différentes sources de statistiques d'entreprises
+- **Réduction** de la charge sur les répondants
+- **Amélioration** de la couverture et de la qualité
+- **Flexibilité** pour intégrer de nouvelles sources (big data, données administratives)
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. Les statistiques d'entreprises décrivent l'activité et la structure des entreprises.
+2. Elles sont produites par des institutions officielles (INSEE, Eurostat) selon des méthodes rigoureuses.
+3. Elles servent à la politique économique, à la recherche et aux acteurs privés.
+4. L'harmonisation européenne (règlement EBS) permet la comparaison entre pays.
+5. data.gouv.fr offre un accès libre à de nombreux jeux de données officiels.
+:::
+
+## Ressources complémentaires
+
+- 📗 [Portail thématique Entreprises de l'INSEE](https://www.insee.fr/fr/statistiques?debut=0&theme=6)
+- 📘 [Guide d'utilisation des statistiques d'entreprises (INSEE)](https://www.insee.fr/fr/information/2388023)
+- 📙 [Eurostat Statistics Explained — Business statistics](https://ec.europa.eu/eurostat/statistics-explained/index.php/Business_statistics)
+- 📕 [Règlement EBS 2019/2152 (EUR-Lex)](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2152)
+
+---
+
+*Chapitre suivant : [Module 02 — Unités statistiques et concepts clés →](02-concepts.qmd)*

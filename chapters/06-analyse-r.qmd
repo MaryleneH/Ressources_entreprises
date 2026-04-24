@@ -1,0 +1,384 @@
+---
+title: "Analyse de données avec R"
+subtitle: "Importer, manipuler et visualiser des statistiques d'entreprises avec R et tidyverse"
+description: "Apprendre à analyser des données officielles sur les entreprises avec R : importation CSV/API, manipulation avec dplyr, visualisation avec ggplot2, tableaux avec knitr."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [R, tidyverse, ggplot2, analyse de données]
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Importer des données CSV et JSON avec R
+- Manipuler des données avec dplyr (filter, mutate, group_by, summarise)
+- Créer des visualisations professionnelles avec ggplot2
+- Appeler une API REST et parser la réponse
+- Produire des tableaux statistiques formatés
+:::
+
+## Prérequis et configuration
+
+### Packages nécessaires
+
+```{r}
+#| label: setup
+#| code-fold: false
+
+# Installation (décommenter si nécessaire)
+# install.packages(c("tidyverse", "httr2", "jsonlite", "readr", "knitr", "DT"))
+
+library(tidyverse)   # dplyr, ggplot2, readr, tidyr, etc.
+library(jsonlite)    # Parsing JSON
+library(knitr)       # Tableaux formatés
+```
+
+## 1. Importer des données CSV
+
+### Exemple : Créations d'entreprises par secteur (données simulées)
+
+Les données ci-dessous reproduisent la **structure** des publications INSEE sur les créations d'entreprises, avec des valeurs illustratives.
+
+```{r}
+#| label: import-csv-demo
+
+# En pratique, vous téléchargez le CSV depuis data.gouv.fr ou insee.fr
+# Ici nous créons un exemple représentatif
+creations_secteur <- tibble(
+  annee         = rep(2021:2023, each = 10),
+  section_naf   = rep(c("C","F","G","H","I","J","K","L","M","N"), 3),
+  libelle       = rep(c(
+    "Industrie manufacturière",
+    "Construction",
+    "Commerce",
+    "Transports",
+    "Hébergement & restauration",
+    "Information & communication",
+    "Finance & assurance",
+    "Immobilier",
+    "Services spécialisés",
+    "Services administratifs"
+  ), 3),
+  nb_creations  = c(
+    # 2021
+    28500, 95000, 185000, 45000, 72000, 68000, 12000, 18000, 125000, 95000,
+    # 2022
+    30000, 105000, 195000, 48000, 78000, 75000, 13000, 19500, 135000, 102000,
+    # 2023
+    31200, 108000, 198000, 50000, 80000, 78000, 13500, 20000, 140000, 106000
+  )
+)
+
+# Aperçu des données
+head(creations_secteur, 10) |>
+  kable(
+    caption = "Créations d'entreprises par section NAF (données illustratives)",
+    col.names = c("Année", "Section NAF", "Libellé", "Nb créations"),
+    format.args = list(big.mark = " ")
+  )
+```
+
+::: {.callout-warning}
+## ⚠️ Données illustratives
+
+Ces données reproduisent la **structure** des statistiques INSEE mais avec des valeurs approximatives. 
+Remplacez-les par les données officielles depuis [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/) ou [insee.fr](https://www.insee.fr/fr/statistiques/2015937).
+:::
+
+## 2. Manipulation avec dplyr
+
+### Filtrer et résumer les données
+
+```{r}
+#| label: dplyr-manipulation
+
+# Top 5 des secteurs en 2023
+top5_2023 <- creations_secteur |>
+  filter(annee == 2023) |>
+  arrange(desc(nb_creations)) |>
+  slice_head(n = 5) |>
+  mutate(
+    part_pct = round(nb_creations / sum(creations_secteur$nb_creations[
+      creations_secteur$annee == 2023]) * 100, 1)
+  )
+
+kable(
+  top5_2023 |> select(libelle, nb_creations, part_pct),
+  col.names = c("Secteur", "Créations 2023", "Part (%)"),
+  format.args = list(big.mark = " "),
+  caption = "Top 5 des secteurs par nombre de créations en 2023"
+)
+```
+
+### Évolution annuelle par grand secteur
+
+```{r}
+#| label: evolution-annuelle
+
+# Calcul de la variation 2021-2023
+evolution <- creations_secteur |>
+  pivot_wider(names_from = annee, values_from = nb_creations,
+              names_prefix = "n_") |>
+  mutate(
+    var_pct = round((n_2023 - n_2021) / n_2021 * 100, 1)
+  ) |>
+  arrange(desc(var_pct))
+
+kable(
+  evolution |> select(libelle, n_2021, n_2022, n_2023, var_pct),
+  col.names = c("Secteur", "2021", "2022", "2023", "Var. 21-23 (%)"),
+  format.args = list(big.mark = " "),
+  caption = "Évolution des créations d'entreprises 2021-2023"
+)
+```
+
+## 3. Visualisation avec ggplot2
+
+### Graphique en barres horizontales
+
+```{r}
+#| label: fig-barres-secteurs
+#| fig-cap: "Top 10 des secteurs par créations d'entreprises en 2023 (données illustratives)"
+#| fig-height: 5
+#| fig-width: 8
+
+# Palette de couleurs institutionnelle
+couleurs_insee <- c("#003189", "#2F7ED8", "#5E8ABD", "#8DB3D1", "#BDDCE5",
+                    "#E8F4F8", "#FFE4CC", "#FFBF80", "#FF8C42", "#E05F1B")
+
+creations_secteur |>
+  filter(annee == 2023) |>
+  arrange(nb_creations) |>
+  mutate(libelle = fct_inorder(libelle)) |>
+  ggplot(aes(x = nb_creations, y = libelle, fill = nb_creations)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = scales::number(nb_creations, big.mark = " ")),
+            hjust = -0.1, size = 3, color = "#374151") +
+  scale_fill_gradient(low = "#bfdbfe", high = "#1a56db") +
+  scale_x_continuous(
+    labels = scales::number_format(big.mark = " ", scale = 1e-3, suffix = " k"),
+    expand = expansion(mult = c(0, 0.2))
+  ) +
+  labs(
+    title = "Créations d'entreprises par secteur en 2023",
+    subtitle = "Données illustratives — remplacer par les données officielles INSEE",
+    x = "Nombre de créations",
+    y = NULL,
+    caption = "Source : Structure basée sur les publications INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title    = element_text(face = "bold", size = 13),
+    plot.subtitle = element_text(color = "#6b7280"),
+    plot.caption  = element_text(color = "#9ca3af", hjust = 0),
+    panel.grid.major.y = element_blank(),
+    axis.text.y   = element_text(size = 9)
+  )
+```
+
+### Graphique en courbes : évolution temporelle
+
+```{r}
+#| label: fig-evolution-secteurs
+#| fig-cap: "Évolution des créations d'entreprises 2021-2023 pour les secteurs les plus dynamiques"
+#| fig-height: 5
+#| fig-width: 9
+
+# Sélectionner les 5 secteurs avec le plus grand nombre de créations en 2023
+top5_labels <- top5_2023$libelle
+
+creations_secteur |>
+  filter(libelle %in% top5_labels) |>
+  ggplot(aes(x = annee, y = nb_creations, color = libelle, group = libelle)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  scale_y_continuous(
+    labels = scales::number_format(big.mark = " ", scale = 1e-3, suffix = "k")
+  ) +
+  scale_x_continuous(breaks = 2021:2023) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Évolution des créations d'entreprises dans les 5 premiers secteurs",
+    subtitle = "Données illustratives — remplacer par les données officielles INSEE",
+    x = "Année",
+    y = "Nombre de créations",
+    color = "Secteur",
+    caption = "Source : Structure basée sur les publications INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title    = element_text(face = "bold", size = 13),
+    plot.subtitle = element_text(color = "#6b7280"),
+    plot.caption  = element_text(color = "#9ca3af", hjust = 0),
+    legend.position = "bottom",
+    legend.text   = element_text(size = 8)
+  )
+```
+
+## 4. Appel à une API REST
+
+### Exemple : Interroger l'API de data.gouv.fr
+
+```{r}
+#| label: api-datagouv
+#| eval: false
+#| code-fold: false
+
+library(httr2)
+
+# Rechercher des datasets sur les entreprises
+req <- request("https://www.data.gouv.fr/api/1/datasets/") |>
+  req_url_query(
+    q = "base SIRENE entreprises",
+    page_size = 5,
+    sort = "-created"
+  )
+
+resp <- req |> req_perform()
+
+# Parser la réponse JSON
+data_results <- resp |>
+  resp_body_json(simplifyVector = TRUE)
+
+# Afficher les titres des datasets trouvés
+data_results$data |>
+  select(title, organization.name, last_modified) |>
+  kable(col.names = c("Titre", "Producteur", "Dernière modification"))
+```
+
+::: {.callout-note}
+## 📌 Note d'exécution
+
+Le code API ci-dessus nécessite une **connexion internet** et est marqué `eval: false` pour la reproductibilité hors ligne. Décommentez `eval: true` pour l'exécuter dans un environnement connecté.
+:::
+
+### Exemple : Interroger l'API INSEE (séries temporelles)
+
+```{r}
+#| label: api-insee-demo
+#| eval: false
+#| code-fold: false
+
+# L'API INSEE nécessite une clé d'authentification (gratuite)
+# Obtenir une clé sur https://api.insee.fr/catalogue
+
+library(httr2)
+
+# Identifiants à renseigner
+consumer_key <- "VOTRE_CONSUMER_KEY"
+consumer_secret <- "VOTRE_CONSUMER_SECRET"
+
+# Authentification OAuth2 (client credentials)
+token_req <- request("https://api.insee.fr/token") |>
+  req_auth_basic(consumer_key, consumer_secret) |>
+  req_body_form(grant_type = "client_credentials")
+
+token_resp <- token_req |> req_perform()
+access_token <- token_resp |> resp_body_json() |> pluck("access_token")
+
+# Requête de données (série ICA-2015-A88-A-BDAP)
+# Exemple : Indice de chiffre d'affaires — Services informatiques
+series_req <- request("https://api.insee.fr/series/BDM/V1/data/SERIES_BDM/001557412") |>
+  req_headers(Authorization = paste("Bearer", access_token)) |>
+  req_url_query(format = "json")
+
+series_resp <- series_req |> req_perform()
+```
+
+## 5. Analyse statistique simple : taille des entreprises
+
+```{r}
+#| label: analyse-taille
+
+# Données illustratives : répartition des entreprises par taille (France 2022)
+# Source : INSEE ESANE — données indicatives
+tailles <- tibble(
+  tranche = c("0 salarié", "1-9", "10-49", "50-249", "250-499", "500+"),
+  label   = c("Micro (0)", "Micro (1-9)", "TPE (10-49)", "PME (50-249)", "ETI (250-499)", "GE (500+)"),
+  nb_entreprises = c(3800000, 1250000, 180000, 22000, 2200, 1500),
+  pct_va  = c(10, 20, 22, 20, 10, 18)
+)
+
+# Graphique combiné : effectif et part de VA
+tailles |>
+  mutate(
+    tranche = fct_inorder(tranche),
+    pct_effectif = round(nb_entreprises / sum(nb_entreprises) * 100, 2)
+  ) |>
+  pivot_longer(cols = c(pct_effectif, pct_va),
+               names_to = "indicateur", values_to = "valeur") |>
+  mutate(
+    indicateur = case_match(indicateur,
+      "pct_effectif" ~ "% Nombre d'entreprises",
+      "pct_va"       ~ "% Valeur ajoutée"
+    )
+  ) |>
+  ggplot(aes(x = tranche, y = valeur, fill = indicateur)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("#1a56db", "#0e9f6e")) +
+  labs(
+    title = "Répartition des entreprises par taille — France",
+    subtitle = "Données illustratives basées sur les ordres de grandeur ESANE",
+    x = "Taille d'entreprise",
+    y = "Part (%)",
+    fill = NULL,
+    caption = "Source : Structure basée sur ESANE INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold"),
+    plot.caption = element_text(color = "#9ca3af", hjust = 0)
+  )
+```
+
+## 6. Exporter et partager ses résultats
+
+```{r}
+#| label: export-demo
+#| eval: false
+
+# Exporter un tableau en CSV
+write_csv(creations_secteur, "data/creations_secteur_2021_2023.csv")
+
+# Exporter un graphique en PNG
+ggsave("assets/fig_creations_secteurs.png", width = 10, height = 6, dpi = 150)
+
+# Tableau interactif avec DT
+library(DT)
+datatable(
+  creations_secteur |> filter(annee == 2023),
+  colnames = c("Année", "Code NAF", "Secteur", "Nb créations"),
+  options = list(pageLength = 10, dom = 'ftp')
+)
+```
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. `readr::read_csv()` importe facilement les fichiers CSV officiels
+2. `dplyr` (filter, mutate, group_by, summarise) suffit pour la plupart des analyses
+3. `ggplot2` + `theme_minimal()` produisent des graphiques professionnels
+4. Les API (INSEE, data.gouv.fr) nécessitent parfois une clé d'accès gratuite
+5. Documentez toujours vos sources dans le code (commentaires ou labels Quarto)
+:::
+
+## Ressources complémentaires
+
+- 📘 [R for Data Science (Hadley Wickham)](https://r4ds.hadley.nz) — la référence
+- 📗 [ggplot2 reference](https://ggplot2.tidyverse.org/reference/)
+- 📙 [httr2 pour les API](https://httr2.r-lib.org)
+- 📕 [Documentation API INSEE](https://api.insee.fr/catalogue)
+- 📗 [Quarto — Code execution](https://quarto.org/docs/computations/r.html)
+
+---
+
+*Chapitre précédent : [Module 05 — Open Data](05-opendata.qmd) | Chapitre suivant : [Module 07 — Python →](07-analyse-python.qmd)*

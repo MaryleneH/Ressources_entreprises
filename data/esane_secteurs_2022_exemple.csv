@@ -1,0 +1,11 @@
+annee,section_naf,libelle_section,nb_entreprises,ca_milliards_ht,va_milliards,emploi_milliers_etp,fbcf_milliards
+2022,C,Industrie manufacturière,200000,820,230,3100,42
+2022,F,Construction,350000,310,95,1700,18
+2022,G,Commerce,680000,1680,280,3300,35
+2022,H,Transports et entreposage,80000,280,85,1300,22
+2022,I,Hébergement et restauration,220000,95,35,1200,8
+2022,J,Information et communication,140000,240,115,1000,28
+2022,K,Finance et assurance,60000,180,90,450,12
+2022,L,Activités immobilières,120000,160,60,250,5
+2022,M,Services spécialisés scientifiques,420000,310,140,1800,20
+2022,N,Services administratifs,280000,210,80,2200,15

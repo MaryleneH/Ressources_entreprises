@@ -1,0 +1,360 @@
+---
+title: "Exercices progressifs"
+subtitle: "Débutant · Intermédiaire · Avancé"
+description: "Des exercices gradués pour tester et approfondir vos connaissances en statistiques d'entreprises, avec questions, indices et éléments de réponse."
+author: "Formation StatEntreprises"
+date: last-modified
+toc: true
+---
+
+::: {.callout-note}
+## 📋 Mode d'emploi des exercices
+
+Les exercices sont organisés en **trois niveaux** :
+
+- 🟢 **Débutant** — Compréhension des concepts et navigation dans les sources
+- 🟡 **Intermédiaire** — Exploitation de données, calculs et comparaisons
+- 🔴 **Avancé** — Analyses approfondies, croisement de sources, visualisation
+
+Chaque exercice indique la **source recommandée** et propose des **indices** si besoin.
+:::
+
+---
+
+## 🟢 Exercices Débutant
+
+### Exercice 1.1 — Vocabulaire des unités statistiques
+
+::: {.exercise-box}
+<span class="difficulty-badge beginner">Débutant</span>
+
+**Associez chaque terme à sa définition correcte :**
+
+| Terme | Définition |
+|-------|-----------|
+| A. SIREN | 1. Numéro d'identification d'un établissement (14 chiffres) |
+| B. SIRET | 2. Regroupement d'entreprises liées par des relations capitalistiques |
+| C. Entreprise (sens LME) | 3. Numéro d'identification d'une unité légale (9 chiffres) |
+| D. Groupe | 4. Plus petite combinaison d'unités légales ayant une autonomie de décision |
+| E. Établissement | 5. Unité géographique de production |
+
+**Réponses :**
+
+<details>
+<summary>👁️ Voir les réponses</summary>
+
+- A → 3 (SIREN = identifiant de l'unité légale, 9 chiffres)
+- B → 1 (SIRET = SIREN + NIC, 14 chiffres, identifie un établissement)
+- C → 4 (Entreprise au sens LME = unité statistique de référence)
+- D → 2 (Groupe = ensemble d'entreprises sous contrôle commun)
+- E → 5 (Établissement = unité géographique, un SIRET = un lieu)
+
+</details>
+:::
+
+### Exercice 1.2 — Lire un code NAF
+
+::: {.exercise-box}
+<span class="difficulty-badge beginner">Débutant</span>
+
+**Décomposez les codes NAF suivants en indiquant la section, la division et l'activité :**
+
+1. `62.01Z` — Que représente chaque position ?
+2. `10.71C` — Quel type d'activité cela désigne-t-il ?
+3. `47.11B` — Dans quelle grande section se situe ce code ?
+
+**Ressource recommandée :** [Nomenclature NAF — INSEE](https://www.insee.fr/fr/information/2406147)
+
+<details>
+<summary>👁️ Voir les réponses</summary>
+
+1. `62.01Z` :
+   - Section **J** — Information et communication
+   - Division **62** — Programmation, conseil et autres activités informatiques
+   - Groupe **62.0** — Même groupe
+   - Classe **62.01** — Programmation informatique
+   - Sous-classe **62.01Z** — Programmation informatique (pas de subdivision française)
+
+2. `10.71C` :
+   - Section **C** — Industrie manufacturière
+   - Division **10** — Industries alimentaires
+   - Boulangerie et boulangerie-pâtisserie
+
+3. `47.11B` :
+   - Section **G** — Commerce de gros et de détail
+   - Commerce d'alimentation générale
+
+</details>
+:::
+
+### Exercice 1.3 — Identifier la bonne source
+
+::: {.exercise-box}
+<span class="difficulty-badge beginner">Débutant</span>
+
+**Pour chaque question, identifiez la source la plus appropriée (INSEE, Eurostat, data.gouv.fr) :**
+
+1. Vous voulez connaître le nombre d'entreprises créées en France en 2023 dans le secteur de la construction.
+2. Vous souhaitez comparer le chiffre d'affaires de l'industrie alimentaire en France et en Allemagne.
+3. Vous cherchez l'adresse et le code NAF d'une entreprise spécifique à partir de son SIREN.
+4. Vous voulez accéder à la liste complète des entreprises et établissements français en téléchargement libre.
+
+<details>
+<summary>👁️ Voir les réponses</summary>
+
+1. **INSEE** — Statistiques sur les créations d'entreprises : [insee.fr/statistiques/2015937](https://www.insee.fr/fr/statistiques/2015937)
+2. **Eurostat** — Structural Business Statistics, dataset `sbs_na_ind_r2`, pour des comparaisons entre pays UE
+3. **API INSEE SIRENE** — `api.insee.fr/entreprises/sirene` ou [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr)
+4. **data.gouv.fr** — [Base SIRENE en téléchargement](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+
+</details>
+:::
+
+### Exercice 1.4 — Calculer des indicateurs simples
+
+::: {.exercise-box}
+<span class="difficulty-badge beginner">Débutant</span>
+
+Une entreprise de services informatiques présente les données suivantes pour l'exercice N :
+
+- Chiffre d'affaires HT : **4 200 000 €**
+- Achats et consommations externes : **1 050 000 €**
+- Charges de personnel : **2 100 000 €**
+- Effectif moyen : **28 ETP**
+
+**Questions :**
+
+1. Calculez la **valeur ajoutée** (VA = CA - Consommations intermédiaires)
+2. Calculez le **taux de valeur ajoutée** (VA / CA × 100)
+3. Calculez la **productivité apparente du travail** (VA / effectif)
+4. Calculez l'**excédent brut d'exploitation** (EBE = VA - Charges de personnel)
+
+<details>
+<summary>👁️ Voir les réponses</summary>
+
+1. **Valeur ajoutée** = 4 200 000 - 1 050 000 = **3 150 000 €**
+2. **Taux de VA** = 3 150 000 / 4 200 000 × 100 = **75%** (typique des services informatiques)
+3. **Productivité** = 3 150 000 / 28 = **112 500 €/ETP** (112,5 k€)
+4. **EBE** = 3 150 000 - 2 100 000 = **1 050 000 €**
+
+> 💡 Un taux de VA de 75% est caractéristique des services à forte intensité de main-d'œuvre qualifiée. À comparer avec l'industrie manufacturière (~28%) ou le commerce (~17%).
+
+</details>
+:::
+
+---
+
+## 🟡 Exercices Intermédiaires
+
+### Exercice 2.1 — Analyse sectorielle avec R
+
+::: {.exercise-box}
+<span class="difficulty-badge intermediate">Intermédiaire</span>
+
+**Objectif :** Télécharger et analyser les données de créations d'entreprises par secteur depuis data.gouv.fr ou les publications INSEE.
+
+**Étapes :**
+
+1. Téléchargez les données de créations d'entreprises mensuelles (format CSV) depuis [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+2. Importez le fichier dans R avec `readr::read_csv()`
+3. Filtrez sur les entreprises créées en 2023 (colonne `dateCreationUniteLegale`)
+4. Regroupez par `activitePrincipaleUniteLegale` (code NAF) et comptez
+5. Visualisez le top 15 des codes NAF en termes de créations
+
+**Squelette de code :**
+
+```r
+library(tidyverse)
+
+# 1. Importer (adapter le chemin)
+sirene <- read_csv("data/StockUniteLegale_utf8.csv",
+                   col_select = c("siren", "dateCreationUniteLegale",
+                                  "activitePrincipaleUniteLegale",
+                                  "categorieJuridiqueUniteLegale"),
+                   locale = locale(encoding = "UTF-8"))
+
+# 2. Filtrer sur 2023
+creations_2023 <- sirene |>
+  filter(str_starts(dateCreationUniteLegale, "2023"))
+
+# 3. Agréger par code NAF
+top_naf <- creations_2023 |>
+  count(activitePrincipaleUniteLegale, sort = TRUE) |>
+  slice_head(n = 15)
+
+# 4. Visualiser
+ggplot(top_naf, aes(x = n, y = reorder(activitePrincipaleUniteLegale, n))) +
+  geom_col(fill = "#1a56db") +
+  labs(title = "Top 15 des codes NAF en créations d'entreprises (2023)",
+       x = "Nombre de créations", y = "Code NAF") +
+  theme_minimal()
+```
+
+**💡 Indice :** La base SIRENE complète est volumineuse (~2 Go). Pour tester, utilisez le **fichier partiel** ou filtrez sur quelques départements (colonne `codeCommuneEtablissementSiege`).
+:::
+
+### Exercice 2.2 — Comparer deux secteurs
+
+::: {.exercise-box}
+<span class="difficulty-badge intermediate">Intermédiaire</span>
+
+**Objectif :** Comparer les performances économiques du secteur **Construction (F)** et **Information & Communication (J)** en France sur les données ESANE disponibles.
+
+**Questions :**
+
+1. Pour chaque secteur, calculez : CA total, VA totale, emploi total, taux de VA, productivité
+2. Quelle est la part de chaque secteur dans la VA totale de l'économie marchande ?
+3. Lequel des deux secteurs est le plus productif ? Lequel emploie le plus ?
+4. Produisez un graphique radar (ou barres groupées) comparant les deux secteurs
+
+**Source :** [ESANE — Résultats sectoriels](https://www.insee.fr/fr/statistiques/2045265)
+
+**Ressource complémentaire :** Vous pouvez utiliser le package `fmsb` en R pour les graphiques radar.
+:::
+
+### Exercice 2.3 — Utiliser l'API Eurostat avec Python
+
+::: {.exercise-box}
+<span class="difficulty-badge intermediate">Intermédiaire</span>
+
+**Objectif :** Récupérer les données SBS Eurostat via l'API SDMX pour le secteur J (Information & Communication) en France, Allemagne, Italie et Espagne.
+
+**URL de base :**
+```
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_na_serv_r2
+```
+
+**Paramètres :**
+- `geo` : FR, DE, IT, ES
+- `nace_r2` : J (ou 62 pour plus de précision)
+- `indic_sb` : V12110 (CA), V12150 (VA), V16110 (personnes occupées)
+- `time` : 2019, 2020, 2021
+
+**Squelette Python :**
+
+```python
+import requests
+import pandas as pd
+
+url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_na_serv_r2"
+params = {
+    "format": "JSON",
+    "lang": "FR",
+    "geo": "FR+DE+IT+ES",
+    "nace_r2": "J",
+    "indic_sb": "V12110+V12150+V16110",
+    "time": "2019+2020+2021"
+}
+
+response = requests.get(url, params=params, timeout=30)
+data = response.json()
+
+# Parser le format JSON-stat Eurostat (format spécifique)
+# Voir : https://ec.europa.eu/eurostat/statistics-explained/index.php/Eurostat_data_download_API
+```
+
+**💡 Indice :** L'API Eurostat retourne du JSON-stat. Utilisez la librairie `eurostatapir` ou parsez manuellement les `value`, `dimension` et `id`.
+:::
+
+---
+
+## 🔴 Exercices Avancés
+
+### Exercice 3.1 — Tableau de bord sectoriel complet
+
+::: {.exercise-box}
+<span class="difficulty-badge advanced">Avancé</span>
+
+**Objectif :** Produire un **tableau de bord interactif** avec Quarto qui agrège automatiquement les indicateurs clés d'un secteur NAF à 2 chiffres, en combinant plusieurs sources.
+
+**Sources à combiner :**
+1. **ESANE** (INSEE) : CA, VA, emploi, FBCF pour l'année N-2
+2. **Démographie INSEE** : créations et défaillances pour N-1 et N
+3. **BODACC** (data.gouv.fr) : annonces légales récentes du secteur
+
+**Livrable attendu :**
+- Un fichier `.qmd` paramétrable (paramètre `code_naf`) 
+- Rendu automatiquement pour 3 secteurs différents
+- Incluant : tableau récapitulatif, 2 graphiques, 1 carte régionale
+
+**Paramétrage Quarto :**
+
+```yaml
+---
+params:
+  code_naf: "62"
+  libelle_secteur: "Programmation informatique"
+  annee_ref: 2022
+---
+```
+
+**💡 Indices :**
+- Utilisez `params$code_naf` dans R ou `{params['code_naf']}` en Python
+- Pour la carte régionale, les packages `sf` + `ggplot2` en R ou `geopandas` en Python
+- Fonds de carte France : disponibles sur [data.gouv.fr (ADMIN-EXPRESS)](https://www.data.gouv.fr/fr/datasets/admin-express/)
+:::
+
+### Exercice 3.2 — Analyse de survie des entreprises
+
+::: {.exercise-box}
+<span class="difficulty-badge advanced">Avancé</span>
+
+**Objectif :** Reproduire une analyse de **survie à 5 ans** des entreprises créées en 2018 en France, par secteur d'activité, en utilisant les données de cohortes de l'INSEE.
+
+**Source :** [INSEE — Taux de survie des entreprises](https://www.insee.fr/fr/statistiques/2832036)
+
+**Questions avancées :**
+
+1. Chargez les données de survie par cohorte 2018 et secteur NAF
+2. Reproduisez les courbes de Kaplan-Meier par grand secteur (si données individuelles disponibles) ou les courbes de survie agrégées
+3. Testez si les taux de survie diffèrent significativement entre secteurs (test du log-rank)
+4. Identifiez les 3 secteurs avec les taux de survie à 5 ans les plus élevés et les plus faibles
+5. Construisez un modèle de régression de Cox (si données individuelles) ou commentez les déterminants de la survie
+
+**Librairies R :** `survival`, `survminer`
+
+**Librairies Python :** `lifelines`
+:::
+
+### Exercice 3.3 — Détecter des anomalies dans les données SIRENE
+
+::: {.exercise-box}
+<span class="difficulty-badge advanced">Avancé</span>
+
+**Objectif :** Explorer la qualité des données de la Base SIRENE en identifiant des **incohérences** ou **anomalies** potentielles.
+
+**Questions :**
+
+1. Y a-t-il des SIREN dupliqués dans le fichier de stock des unités légales ?
+2. Y a-t-il des établissements (SIRET) dont le SIREN n'existe pas dans le fichier des unités légales ?
+3. Quelle est la distribution des tranches d'effectif par section NAF ? Est-elle cohérente avec les données ESANE ?
+4. Identifiez les codes NAF les plus fréquents parmi les entreprises ayant une date de cessation renseignée.
+5. Produisez un rapport de qualité des données en 1 page Quarto.
+
+**💡 Conseils :**
+- Travaillez avec un **échantillon** (ex: 100 000 lignes) pour tester votre code
+- Utilisez `dplyr::anti_join()` en R ou `pandas.merge()` avec `indicator=True` en Python pour détecter les orphelins
+:::
+
+---
+
+::: {.callout-tip}
+## 🏆 Validation des compétences
+
+Après avoir complété les exercices d'un niveau, vous devriez être capable de :
+
+**Niveau Débutant ✅**
+- Identifier les bonnes sources selon la question
+- Calculer VA, taux de VA, productivité
+- Lire et interpréter un code NAF
+
+**Niveau Intermédiaire ✅**  
+- Importer et manipuler des données officielles
+- Réaliser des comparaisons sectorielles documentées
+- Appeler une API et parser sa réponse
+
+**Niveau Avancé ✅**
+- Produire des analyses reproductibles et paramétrables
+- Croiser plusieurs sources de données
+- Détecter et documenter des problèmes de qualité de données
+:::

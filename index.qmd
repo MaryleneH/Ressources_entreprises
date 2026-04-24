@@ -1,0 +1,273 @@
+---
+title: "Formation aux Statistiques d'Entreprises"
+subtitle: "Comprendre, analyser et exploiter les statistiques officielles sur les entreprises"
+pagetitle: "Statistiques d'Entreprises — Formation complète"
+toc: false
+sidebar: false
+---
+
+```{=html}
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="container">
+    <h1>📊 Statistiques d'Entreprises</h1>
+    <p class="hero-subtitle">
+      Une formation complète pour comprendre, analyser et exploiter les statistiques officielles 
+      sur les entreprises — de l'Insee à Eurostat, en passant par data.gouv.fr.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">🇫🇷 Sources officielles françaises</span>
+      <span class="badge">🇪🇺 Données Eurostat</span>
+      <span class="badge">💻 R &amp; Python</span>
+      <span class="badge">📈 Cas pratiques</span>
+      <span class="badge">🔓 Open Data</span>
+    </div>
+    <div class="hero-cta">
+      <a href="chapters/01-introduction.qmd" class="btn-primary-cta">
+        🚀 Commencer la formation
+      </a>
+      <a href="resources/index.qmd" class="btn-secondary-cta">
+        📖 Voir les ressources
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stat-counters">
+      <div class="stat-item">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Chapitres de cours</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Cas pratiques</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Sources officielles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">+30</div>
+        <div class="stat-label">Exercices progressifs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">R + Py</div>
+        <div class="stat-label">Langages de données</div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+## À qui s'adresse cette formation ?
+
+Cette formation s'adresse à toutes les personnes souhaitant maîtriser les statistiques officielles sur les entreprises :
+
+:::: {.columns}
+
+::: {.column width="25%"}
+**🎓 Étudiants**  
+Master économie, statistique, data science, sciences sociales
+:::
+
+::: {.column width="25%"}
+**📊 Analystes**  
+Chargés d'études, économistes, consultants, chercheurs
+:::
+
+::: {.column width="25%"}
+**🏛️ Secteur public**  
+Agents de l'État, collectivités, organismes publics
+:::
+
+::: {.column width="25%"}
+**💼 Entreprises**  
+Directions stratégie, marketing, veille concurrentielle
+:::
+
+::::
+
+---
+
+## Les modules de la formation
+
+```{=html}
+<div class="module-grid">
+
+  <a href="chapters/01-introduction.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🏁</span>
+    <div class="card-number">Module 01</div>
+    <h3>Introduction aux statistiques d'entreprises</h3>
+    <p>Comprendre le rôle des statistiques dans la politique publique, l'analyse économique et la prise de décision.</p>
+    <div class="card-tags">
+      <span class="tag">Fondamentaux</span>
+      <span class="tag">Institutions</span>
+      <span class="tag">Débutant</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/02-concepts.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🔬</span>
+    <div class="card-number">Module 02</div>
+    <h3>Unités statistiques et concepts clés</h3>
+    <p>Entreprise, établissement, unité légale, groupe : maîtriser les définitions fondamentales et les nomenclatures NAF/NACE.</p>
+    <div class="card-tags">
+      <span class="tag">Concepts</span>
+      <span class="tag">NAF</span>
+      <span class="tag">NACE</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/03-sources-francaises.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🇫🇷</span>
+    <div class="card-number">Module 03</div>
+    <h3>Sources françaises — L'Insee</h3>
+    <p>Découvrir les publications, bases de données et métadonnées de l'Institut national de la statistique et des études économiques.</p>
+    <div class="card-tags">
+      <span class="tag">Insee</span>
+      <span class="tag">ESANE</span>
+      <span class="tag">SIRENE</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/04-sources-europeennes.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🇪🇺</span>
+    <div class="card-number">Module 04</div>
+    <h3>Sources européennes — Eurostat</h3>
+    <p>Exploiter les Structural Business Statistics d'Eurostat et comparer les pays européens grâce à la nomenclature NACE.</p>
+    <div class="card-tags">
+      <span class="tag">Eurostat</span>
+      <span class="tag">SBS</span>
+      <span class="tag">NACE</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/05-opendata.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🔓</span>
+    <div class="card-number">Module 05</div>
+    <h3>Open Data &amp; data.gouv.fr</h3>
+    <p>Rechercher, explorer et réutiliser les jeux de données officiels sur data.gouv.fr et les API ouvertes.</p>
+    <div class="card-tags">
+      <span class="tag">Open Data</span>
+      <span class="tag">API</span>
+      <span class="tag">data.gouv.fr</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/06-analyse-r.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">📊</span>
+    <div class="card-number">Module 06</div>
+    <h3>Analyse de données avec R</h3>
+    <p>Importer, manipuler et visualiser des données d'entreprises avec R, tidyverse, ggplot2 et des exemples reproductibles.</p>
+    <div class="card-tags">
+      <span class="tag">R</span>
+      <span class="tag">tidyverse</span>
+      <span class="tag">ggplot2</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/07-analyse-python.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🐍</span>
+    <div class="card-number">Module 07</div>
+    <h3>Analyse de données avec Python</h3>
+    <p>Exploiter des statistiques officielles avec pandas, requests, plotly et matplotlib dans des notebooks Quarto.</p>
+    <div class="card-tags">
+      <span class="tag">Python</span>
+      <span class="tag">pandas</span>
+      <span class="tag">plotly</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="case-studies/index.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🔭</span>
+    <div class="card-number">Cas pratiques</div>
+    <h3>Études de cas approfondies</h3>
+    <p>Analyser la démographie d'entreprises, comparer des secteurs, étudier des données régionales et européennes.</p>
+    <div class="card-tags">
+      <span class="tag">Démographie</span>
+      <span class="tag">Secteurs</span>
+      <span class="tag">Régions</span>
+    </div>
+    <span class="card-link">Découvrir →</span>
+  </a>
+
+  <a href="exercises/index.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">✏️</span>
+    <div class="card-number">Exercices</div>
+    <h3>Exercices progressifs</h3>
+    <p>Des exercices de niveau débutant à avancé pour tester et approfondir vos connaissances, avec corrections commentées.</p>
+    <div class="card-tags">
+      <span class="tag">Débutant</span>
+      <span class="tag">Intermédiaire</span>
+      <span class="tag">Avancé</span>
+    </div>
+    <span class="card-link">S'exercer →</span>
+  </a>
+
+</div>
+```
+
+---
+
+## Pourquoi cette formation ?
+
+::: {.callout-note}
+## 💡 Le contexte
+
+Les statistiques d'entreprises sont au cœur de l'analyse économique moderne. Pourtant, leur exploitation reste souvent réservée aux spécialistes, faute de ressources pédagogiques accessibles. Cette formation vise à démocratiser l'accès à ces données en proposant un parcours structuré, basé sur des sources officielles et des outils modernes.
+:::
+
+### Des sources fiables et officielles
+
+Cette formation s'appuie exclusivement sur des sources reconnues :
+
+| Source | Institution | Type de données |
+|--------|-------------|-----------------|
+| [insee.fr](https://www.insee.fr) | Institut national de la statistique (France) | Démographie, emploi, chiffre d'affaires |
+| [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat) | Office statistique de l'UE | SBS, comparaisons européennes |
+| [data.gouv.fr](https://www.data.gouv.fr) | Direction interministérielle (France) | Jeux de données open data |
+
+### Des outils modernes et reproductibles
+
+Cette formation utilise **Quarto** pour produire des documents combinant texte explicatif, code exécutable et visualisations — garantissant la **reproductibilité** totale des analyses.
+
+---
+
+## Parcours recommandés
+
+```{mermaid}
+flowchart LR
+    A([🏁 Débutant]) --> B[Module 01\nIntroduction]
+    B --> C[Module 02\nConcepts]
+    C --> D[Module 03\nInsee]
+    D --> E[Exercices\nNiveau 1]
+    
+    E --> F([📊 Intermédiaire])
+    F --> G[Module 04\nEurostat]
+    G --> H[Module 05\nOpen Data]
+    H --> I[Module 06\nR]
+    H --> J[Module 07\nPython]
+    
+    I --> K([🔬 Avancé])
+    J --> K
+    K --> L[Cas pratiques]
+    L --> M[Exercices\nNiveaux 2 & 3]
+```
+
+---
+
+::: {.callout-tip}
+## 🚀 Prêt à commencer ?
+
+Démarrez par le [Module 01 — Introduction aux statistiques d'entreprises](chapters/01-introduction.qmd) pour poser les bases, ou explorez directement le module qui vous intéresse via la barre de navigation.
+:::

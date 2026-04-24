@@ -1,0 +1,277 @@
+---
+title: "Open Data & data.gouv.fr"
+subtitle: "Rechercher, explorer et réutiliser les données ouvertes sur les entreprises"
+description: "Apprendre à exploiter la plateforme data.gouv.fr pour trouver des jeux de données officiels sur les entreprises, utiliser les API ouvertes et pratiquer l'exploration de données."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [open data, data.gouv.fr, API, réutilisation]
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Naviguer sur data.gouv.fr pour trouver des données sur les entreprises
+- Comprendre les licences de données ouvertes (Licence Ouverte, ODbL)
+- Utiliser les API ouvertes pour accéder aux données programmatiquement
+- Réaliser une exploration de base d'un jeu de données téléchargé
+- Identifier les principales organisations productrices de données sur les entreprises
+:::
+
+## data.gouv.fr : la plateforme nationale des données ouvertes
+
+**data.gouv.fr** est la plateforme officielle de diffusion des données publiques françaises. Elle est gérée par la **Direction interministérielle du numérique (DINUM)** et rassemble des données provenant de centaines d'organisations publiques.
+
+### Qu'est-ce que l'open data ?
+
+::: {.callout-note}
+## 📖 Définition — Données ouvertes (Open Data)
+
+Une **donnée ouverte** est une donnée que toute personne peut librement :
+- **Accéder** — sans restriction technique ou tarifaire
+- **Réutiliser** — pour tout usage, commercial ou non
+- **Redistribuer** — en modifiant ou en compilant avec d'autres données
+
+Ce principe est encadré en France par la **loi pour une République numérique** (2016) et la **loi CADA**.
+:::
+
+### Les principales licences sur data.gouv.fr
+
+| Licence | Abréviation | Conditions principales |
+|---------|-------------|----------------------|
+| **Licence Ouverte Etalab v2** | LO 2.0 | Mention de la source obligatoire. Pas d'autres restrictions. |
+| **Open Database Licence** | ODbL | Attribution + partage à l'identique des bases dérivées |
+| **Creative Commons CC0** | CC0 | Pas de conditions (domaine public) |
+
+La plupart des données de data.gouv.fr sont publiées sous **Licence Ouverte Etalab v2**.
+
+## Données sur les entreprises disponibles sur data.gouv.fr
+
+### Vue d'ensemble des principaux jeux de données
+
+| Jeu de données | Producteur | Mise à jour | Lien |
+|----------------|-----------|------------|------|
+| **Base Sirene** | INSEE | Quotidienne | [Voir](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/) |
+| **Registre national des entreprises** | INPI | Quotidienne | [Voir](https://www.data.gouv.fr/fr/datasets/registre-national-des-entreprises/) |
+| **Données de BODACC** | DILA | Quotidienne | [Voir](https://www.data.gouv.fr/fr/datasets/bodacc/) |
+| **Bilans et comptes annuels** | INPI | Mensuelle | [Voir](https://www.data.gouv.fr/fr/datasets/donnees-ouvertes-du-registre-national-des-entreprises/) |
+| **Défaillances d'entreprises** | Banque de France | Mensuelle | [Voir](https://www.data.gouv.fr/fr/datasets/defaillances-dentreprises/) |
+| **Aides aux entreprises** | ADEME / Bpifrance | Variable | Selon dataset |
+
+### Focus sur la Base SIRENE
+
+La **Base SIRENE** est l'un des jeux de données les plus riches et les plus utilisés de data.gouv.fr. Elle est disponible en **téléchargement complet** et via **API**.
+
+::: {.callout-note}
+## 📊 Contenu de la base SIRENE (2024)
+
+- **~12 millions d'unités légales** actives et historiques
+- **~30 millions d'établissements** actifs et historiques
+- Mise à jour **quotidienne**
+- Disponible en CSV compressé (~2 Go pour le stock complet)
+
+Fichiers disponibles :
+- `StockUniteLegale_utf8.zip` — toutes les unités légales
+- `StockEtablissement_utf8.zip` — tous les établissements
+- Fichiers de mises à jour journalières (flux)
+:::
+
+#### Comment télécharger la Base SIRENE ?
+
+::: {.callout-tip}
+## 💡 Procédure de téléchargement
+
+**Option 1 : Téléchargement direct**
+1. Allez sur [data.gouv.fr — Base SIRENE](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+2. Téléchargez le fichier de stock mensuel adapté à vos besoins
+3. Décompressez et importez dans votre outil d'analyse
+
+**Option 2 : API**
+L'API SIRENE de l'INSEE est accessible sur `api.insee.fr`.
+Voir le Module 03 pour les détails d'utilisation.
+
+**Option 3 : Outil simplifié**
+L'**Annuaire des entreprises** ([annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr)) offre une interface web conviviale.
+:::
+
+## L'API de data.gouv.fr
+
+data.gouv.fr expose une **API REST** permettant de rechercher et accéder aux datasets programmatiquement.
+
+### Rechercher des jeux de données via l'API
+
+```
+GET https://www.data.gouv.fr/api/1/datasets/?q=entreprises&topic=entreprises
+```
+
+Paramètres utiles :
+- `q` : terme de recherche
+- `topic` : thématique (ex: `entreprises`)
+- `organization` : identifiant d'un producteur
+- `format` : format des fichiers (csv, json, etc.)
+- `page` et `page_size` : pagination
+
+### Exemple de réponse (résumé)
+
+```json
+{
+  "data": [
+    {
+      "id": "...",
+      "title": "Base Sirene des entreprises",
+      "organization": { "name": "Institut national de la statistique..." },
+      "resources": [
+        {
+          "id": "...",
+          "title": "StockUniteLegale_utf8.zip",
+          "url": "https://www.data.gouv.fr/fr/datasets/r/...",
+          "format": "zip",
+          "filesize": 500000000
+        }
+      ],
+      "last_modified": "2024-01-15T10:00:00+00:00"
+    }
+  ],
+  "total": 245,
+  "page": 1
+}
+```
+
+## Exploration pratique d'un dataset
+
+### Exemple : Analyse des créations d'entreprises par département
+
+data.gouv.fr publie des données sur les créations d'entreprises ventilées par département. Voici comment les explorer avec un exemple de données simulées représentatives :
+
+```{r}
+#| label: creation-entreprises-exemple
+#| echo: true
+#| warning: false
+
+library(tidyverse)
+
+# Données illustratives basées sur les ordres de grandeur INSEE 2023
+# Source : https://www.data.gouv.fr/fr/datasets/base-sirene...
+creations_exemple <- tibble(
+  departement = c("75", "69", "13", "59", "33", "31", "67", "44", "06", "34"),
+  nom = c("Paris", "Rhône", "Bouches-du-Rhône", "Nord", "Gironde",
+          "Haute-Garonne", "Bas-Rhin", "Loire-Atlantique", "Alpes-Maritimes", "Hérault"),
+  nb_creations_2023 = c(95000, 38000, 35000, 32000, 28000,
+                         25000, 20000, 19000, 18000, 17000),
+  population_milliers = c(2100, 1850, 2070, 2590, 1600,
+                           1380, 1120, 1400, 1090, 1140)
+)
+
+# Calculer le taux de création pour 1000 habitants
+creations_exemple <- creations_exemple |>
+  mutate(taux_creation = round(nb_creations_2023 / population_milliers, 1))
+
+# Afficher le tableau
+creations_exemple |>
+  arrange(desc(nb_creations_2023)) |>
+  knitr::kable(
+    col.names = c("Code Dept.", "Département", "Créations 2023", "Population (k)", "Taux/1000 hab."),
+    format.args = list(big.mark = " ")
+  )
+```
+
+::: {.callout-warning}
+## ⚠️ Données illustratives
+
+Les chiffres ci-dessus sont des **ordres de grandeur illustratifs** pour la démonstration. 
+Remplacez-les par les données réelles de [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/) pour une analyse réelle.
+:::
+
+## L'API Recherche d'Entreprises
+
+L'**API Recherche d'Entreprises** ([api.recherche-entreprises.fabrique.social.gouv.fr](https://api.recherche-entreprises.fabrique.social.gouv.fr)) est une API complémentaire pour rechercher des entreprises par nom, secteur ou SIRET.
+
+```
+GET https://api.recherche-entreprises.fabrique.social.gouv.fr/api/v1/search
+?q=boulangerie&departement=75&activitePrincipaleUniteLegale=10.71C
+```
+
+## L'écosystème des données ouvertes sur les entreprises
+
+```{mermaid}
+mindmap
+  root((Open Data\nEntreprises))
+    data.gouv.fr
+      SIRENE
+      BODACC
+      Bilans INPI
+      Marchés publics
+    API spécialisées
+      API Entreprise
+      API Recherche Entreprises
+      API SIRENE INSEE
+      Annuaire Entreprises
+    Portails sectoriels
+      ADEME Aides
+      Bpifrance Data
+      Banque de France
+      ACOSS/URSSAF
+```
+
+## BODACC — Bulletin officiel des annonces civiles et commerciales
+
+Le **BODACC** contient les annonces légales publiées au Journal Officiel concernant les entreprises :
+
+- **Ventes et cessions** d'entreprises
+- **Procédures collectives** (redressement, liquidation)
+- **Dépôts de comptes** annuels
+- **Radiations** du registre du commerce
+
+::: {.callout-tip}
+## 💡 Cas d'usage BODACC
+
+Le BODACC est précieux pour :
+- Surveiller la **santé financière** d'entreprises partenaires
+- Analyser les **tendances de défaillance** par secteur
+- Étudier la **dynamique des cessions** d'entreprises
+
+👉 Dataset : [data.gouv.fr — BODACC](https://www.data.gouv.fr/fr/datasets/bodacc/)
+:::
+
+## Bonnes pratiques pour réutiliser des données open data
+
+::: {.callout-note}
+## 📋 Checklist de bonne réutilisation
+
+Avant d'exploiter un jeu de données open data, vérifiez :
+
+- ✅ **Licence** : quelles sont les conditions de réutilisation ?
+- ✅ **Millésime** : de quelle date sont les données ?
+- ✅ **Champ couvert** : quelles entités, secteurs, zones géographiques ?
+- ✅ **Métadonnées** : existe-t-il une documentation du schéma (dictionnaire de variables) ?
+- ✅ **Qualité** : y a-t-il des valeurs manquantes, des erreurs connues ?
+- ✅ **Mise à jour** : le dataset est-il encore maintenu ?
+- ✅ **Contact producteur** : qui contacter en cas de question ?
+:::
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. **data.gouv.fr** centralise des milliers de jeux de données officiels sur les entreprises
+2. La **Base SIRENE** est la référence pour identifier et caractériser toute entreprise française
+3. La **Licence Ouverte Etalab** permet une réutilisation libre avec attribution
+4. L'**API data.gouv.fr** permet de rechercher des datasets programmatiquement
+5. Vérifiez toujours la **date**, la **licence** et le **champ couvert** avant d'utiliser un dataset
+:::
+
+## Ressources complémentaires
+
+- 🔗 [data.gouv.fr — Thème Entreprises](https://www.data.gouv.fr/fr/topics/entreprises/)
+- 🔗 [Base SIRENE complète](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+- 🔗 [BODACC Open Data](https://www.data.gouv.fr/fr/datasets/bodacc/)
+- 🔗 [Registre National des Entreprises — INPI](https://www.data.gouv.fr/fr/datasets/registre-national-des-entreprises/)
+- 🔗 [Annuaire des entreprises](https://annuaire-entreprises.data.gouv.fr)
+- 🔗 [API Recherche Entreprises](https://api.recherche-entreprises.fabrique.social.gouv.fr)
+- 🔗 [Schéma SIRENE (schema.data.gouv.fr)](https://schema.data.gouv.fr)
+
+---
+
+*Chapitre précédent : [Module 04 — Eurostat](04-sources-europeennes.qmd) | Chapitre suivant : [Module 06 — Analyse R →](06-analyse-r.qmd)*
