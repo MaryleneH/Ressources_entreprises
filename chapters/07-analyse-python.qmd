@@ -1,0 +1,384 @@
+---
+title: "Analyse de données avec Python"
+subtitle: "Pandas, Requests, Plotly et Matplotlib pour les statistiques d'entreprises"
+description: "Explorer les statistiques officielles sur les entreprises avec Python : pandas pour la manipulation, requests pour les API, plotly et matplotlib pour la visualisation."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [Python, pandas, plotly, analyse de données]
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Importer et manipuler des données CSV avec pandas
+- Réaliser des statistiques descriptives sur des données d'entreprises
+- Appeler une API REST et parser du JSON avec requests
+- Créer des visualisations interactives avec plotly
+- Créer des graphiques statiques avec matplotlib / seaborn
+:::
+
+## Configuration et imports
+
+```{python}
+#| label: setup
+#| code-fold: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
+
+# Configuration matplotlib
+plt.rcParams.update({
+    'figure.dpi': 150,
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    'font.family': 'sans-serif',
+    'axes.titlesize': 13,
+    'axes.titleweight': 'bold',
+    'axes.labelsize': 10,
+})
+
+print("Packages chargés avec succès ✅")
+print(f"pandas version: {pd.__version__}")
+print(f"numpy version: {np.__version__}")
+```
+
+## 1. Importer et explorer des données
+
+### Création d'un dataset représentatif
+
+```{python}
+#| label: create-dataset
+
+# Données illustratives basées sur les ordres de grandeur ESANE (INSEE)
+# Source de référence : https://www.insee.fr/fr/statistiques/2045265
+data = {
+    'code_naf': ['C', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'],
+    'libelle': [
+        'Industrie manufacturière',
+        'Construction',
+        'Commerce',
+        'Transports',
+        'Hébergement & restauration',
+        'Information & communication',
+        'Finance & assurance',
+        'Immobilier',
+        'Services spécialisés',
+        'Services administratifs'
+    ],
+    'nb_entreprises_2022': [200000, 350000, 680000, 80000, 220000,
+                             140000, 60000, 120000, 420000, 280000],
+    'ca_milliards_2022':   [820, 310, 1680, 280, 95,
+                             240, 180, 160, 310, 210],
+    'va_milliards_2022':   [230, 95,  280, 85, 35,
+                             115, 90,  60,  140, 80],
+    'emploi_milliers_2022': [3100, 1700, 3300, 1300, 1200,
+                              1000, 450,  250,  1800, 2200]
+}
+
+df = pd.DataFrame(data)
+df['taux_va'] = (df['va_milliards_2022'] / df['ca_milliards_2022'] * 100).round(1)
+df['productivite'] = (df['va_milliards_2022'] * 1000 / df['emploi_milliers_2022']).round(1)
+
+print("Shape:", df.shape)
+print("\nAperçu des données :")
+print(df[['code_naf', 'libelle', 'nb_entreprises_2022', 'ca_milliards_2022', 'taux_va']].to_string(index=False))
+```
+
+### Statistiques descriptives
+
+```{python}
+#| label: stats-descriptives
+
+stats = df[['ca_milliards_2022', 'va_milliards_2022', 'emploi_milliers_2022', 'taux_va']].describe()
+print("Statistiques descriptives :\n")
+print(stats.round(1).to_string())
+```
+
+## 2. Manipulation avec pandas
+
+### Filtrer et trier
+
+```{python}
+#| label: pandas-filter
+
+# Top 5 secteurs par chiffre d'affaires
+top5_ca = (df.sort_values('ca_milliards_2022', ascending=False)
+             .head(5)[['libelle', 'ca_milliards_2022', 'va_milliards_2022', 'taux_va']])
+top5_ca.columns = ['Secteur', 'CA (Md€)', 'VA (Md€)', 'Taux VA (%)']
+print("Top 5 secteurs par chiffre d'affaires :\n")
+print(top5_ca.to_string(index=False))
+```
+
+### Calculs groupés
+
+```{python}
+#| label: calculs-groupes
+
+# Simuler des données annuelles (2020-2022)
+np.random.seed(42)
+années = [2020, 2021, 2022]
+rows = []
+for an in années:
+    for _, row in df.iterrows():
+        facteur = 1 + np.random.uniform(-0.05, 0.12)
+        rows.append({
+            'annee': an,
+            'code_naf': row['code_naf'],
+            'libelle': row['libelle'],
+            'ca': row['ca_milliards_2022'] * (facteur if an == 2022 else
+                                                facteur * (0.92 if an == 2020 else 0.97))
+        })
+
+df_panel = pd.DataFrame(rows)
+
+# Croissance par secteur 2020-2022
+pivot_ca = df_panel.pivot_table(values='ca', index='libelle', columns='annee')
+pivot_ca['croissance_pct'] = ((pivot_ca[2022] - pivot_ca[2020]) / pivot_ca[2020] * 100).round(1)
+pivot_ca_sorted = pivot_ca.sort_values('croissance_pct', ascending=False)
+
+print("Croissance du CA par secteur (2020-2022) :")
+print(pivot_ca_sorted[['croissance_pct']].rename(columns={'croissance_pct': 'Croissance (%)'}).to_string())
+```
+
+## 3. Visualisations avec matplotlib
+
+### Graphique en barres horizontales
+
+```{python}
+#| label: fig-barres-ca
+#| fig-cap: "Chiffre d'affaires par secteur en 2022 (données illustratives)"
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+df_sorted = df.sort_values('ca_milliards_2022')
+couleurs = plt.cm.Blues(np.linspace(0.4, 0.9, len(df_sorted)))
+
+bars = ax.barh(df_sorted['libelle'], df_sorted['ca_milliards_2022'],
+               color=couleurs, edgecolor='none', height=0.7)
+
+# Étiquettes
+for bar, val in zip(bars, df_sorted['ca_milliards_2022']):
+    ax.text(bar.get_width() + 15, bar.get_y() + bar.get_height()/2,
+            f'{val} Md€', va='center', fontsize=9, color='#374151')
+
+ax.set_xlabel("Chiffre d'affaires (milliards €)")
+ax.set_title("Chiffre d'affaires par secteur d'activité — France 2022\n"
+             "(données illustratives — source : structure basée sur ESANE INSEE)",
+             fontsize=11)
+ax.set_xlim(0, max(df_sorted['ca_milliards_2022']) * 1.25)
+ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'{x:.0f}'))
+ax.tick_params(axis='y', labelsize=9)
+ax.grid(axis='x', alpha=0.3, linestyle='--')
+
+plt.tight_layout()
+plt.savefig('../assets/fig_ca_secteurs_py.png', dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+### Graphique à bulles : productivité vs taux de VA
+
+```{python}
+#| label: fig-bulles-productivite
+#| fig-cap: "Productivité du travail vs taux de valeur ajoutée par secteur (données illustratives)"
+
+fig, ax = plt.subplots(figsize=(10, 7))
+
+scatter = ax.scatter(
+    df['taux_va'],
+    df['productivite'],
+    s=df['emploi_milliers_2022'] / 15,
+    c=df['ca_milliards_2022'],
+    cmap='Blues',
+    alpha=0.8,
+    edgecolors='#374151',
+    linewidths=0.5
+)
+
+# Étiquettes des points
+for _, row in df.iterrows():
+    ax.annotate(
+        row['code_naf'],
+        (row['taux_va'], row['productivite']),
+        textcoords='offset points',
+        xytext=(5, 5),
+        fontsize=9,
+        fontweight='bold',
+        color='#1e40af'
+    )
+
+plt.colorbar(scatter, label="CA (Md€)", shrink=0.7)
+
+ax.set_xlabel("Taux de valeur ajoutée (VA/CA en %)")
+ax.set_ylabel("Productivité apparente (VA k€ / emploi)")
+ax.set_title(
+    "Productivité vs taux de VA par section NAF\n"
+    "(taille des bulles ∝ emploi — données illustratives)",
+    fontsize=11
+)
+
+# Légende taille bulle
+for taille, label in [(50, "~750k emplois"), (200, "~3M emplois")]:
+    ax.scatter([], [], s=taille/15, c='#93c5fd', edgecolors='#374151',
+               alpha=0.7, label=label)
+ax.legend(title="Emploi salarié", loc='upper left', fontsize=8)
+
+ax.grid(alpha=0.3, linestyle='--')
+plt.tight_layout()
+plt.show()
+```
+
+## 4. Visualisation interactive avec Plotly
+
+```{python}
+#| label: fig-plotly-interactif
+#| eval: false
+
+# Plotly nécessite l'installation séparée : pip install plotly
+import plotly.express as px
+
+fig = px.bar(
+    df.sort_values('ca_milliards_2022', ascending=True),
+    x='ca_milliards_2022',
+    y='libelle',
+    color='taux_va',
+    color_continuous_scale='Blues',
+    orientation='h',
+    labels={
+        'ca_milliards_2022': "CA (Md€)",
+        'libelle': "Secteur",
+        'taux_va': "Taux VA (%)"
+    },
+    title="Chiffre d'affaires et taux de valeur ajoutée par secteur",
+    hover_data=['va_milliards_2022', 'emploi_milliers_2022', 'productivite']
+)
+
+fig.update_layout(
+    height=500,
+    xaxis_title="Chiffre d'affaires (milliards €)",
+    yaxis_title=None,
+    coloraxis_colorbar_title="Taux VA (%)",
+    font_family="Inter, sans-serif"
+)
+
+fig.show()
+```
+
+## 5. Appel à une API REST
+
+### Exemple : API data.gouv.fr
+
+```{python}
+#| label: api-datagouv-python
+#| eval: false
+#| code-fold: false
+
+import requests
+
+# Rechercher des datasets sur les entreprises
+url = "https://www.data.gouv.fr/api/1/datasets/"
+params = {
+    "q": "base SIRENE entreprises",
+    "page_size": 5,
+    "sort": "-created"
+}
+
+response = requests.get(url, params=params, timeout=15)
+response.raise_for_status()
+
+datasets = response.json()["data"]
+
+for ds in datasets:
+    print(f"• {ds['title']}")
+    print(f"  Producteur : {ds.get('organization', {}).get('name', 'N/A')}")
+    print(f"  Modifié le : {ds.get('last_modified', 'N/A')[:10]}")
+    print()
+```
+
+### Exemple : Requête sur l'API Recherche Entreprises
+
+```{python}
+#| label: api-recherche-entreprises
+#| eval: false
+
+import requests
+
+url = "https://api.recherche-entreprises.fabrique.social.gouv.fr/api/v1/search"
+params = {
+    "q": "boulangerie artisanale",
+    "activitePrincipaleUniteLegale": "10.71C",
+    "etatAdministratifUniteLegale": "A",  # A = Actif
+    "nombre": 5
+}
+
+resp = requests.get(url, params=params, timeout=10)
+data = resp.json()
+
+for entreprise in data.get("entreprises", []):
+    print(f"• {entreprise['nom_complet']}")
+    print(f"  SIREN : {entreprise['siren']}")
+    print(f"  Commune : {entreprise.get('commune', 'N/A')}")
+    print()
+```
+
+## 6. Exercice complet : Analyse d'un secteur
+
+::: {.callout-note}
+## 🔬 Exercice guidé
+
+Analysez le secteur **Information & communication (Section J)** :
+1. Calculez sa part dans le CA total et la VA totale
+2. Comparez sa productivité à la moyenne toutes sections
+3. Produisez un graphique à deux axes (CA et taux VA)
+:::
+
+```{python}
+#| label: exercice-section-j
+
+# Section J — Information & communication
+section_j = df[df['code_naf'] == 'J'].iloc[0]
+total_ca   = df['ca_milliards_2022'].sum()
+total_va   = df['va_milliards_2022'].sum()
+moy_prod   = df['productivite'].mean()
+
+print("=== Analyse Section J — Information & Communication ===\n")
+print(f"Chiffre d'affaires : {section_j['ca_milliards_2022']} Md€")
+print(f"  → Part dans le total : {section_j['ca_milliards_2022']/total_ca*100:.1f}%")
+print(f"\nValeur ajoutée : {section_j['va_milliards_2022']} Md€")
+print(f"  → Part dans le total : {section_j['va_milliards_2022']/total_va*100:.1f}%")
+print(f"  → Taux de VA : {section_j['taux_va']}%")
+print(f"\nProductivité apparente : {section_j['productivite']} k€/emploi")
+print(f"  → Écart à la moyenne : +{section_j['productivite']-moy_prod:.1f} k€ "
+      f"({(section_j['productivite']/moy_prod-1)*100:.1f}%)")
+```
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. **pandas** couvre 90% des besoins de manipulation de données tabulaires
+2. **requests** est la bibliothèque standard pour les appels API REST
+3. **matplotlib** pour des graphiques statiques professionnels et reproductibles
+4. **plotly** pour des graphiques interactifs dans les rapports HTML
+5. Documentez toujours les sources dans vos notebooks
+:::
+
+## Ressources complémentaires
+
+- 📘 [pandas Documentation](https://pandas.pydata.org/docs/)
+- 📗 [Matplotlib User Guide](https://matplotlib.org/stable/users/index.html)
+- 📙 [Plotly Python](https://plotly.com/python/)
+- 📕 [requests Documentation](https://requests.readthedocs.io)
+- 📗 [Quarto — Python execution](https://quarto.org/docs/computations/python.html)
+
+---
+
+*Chapitre précédent : [Module 06 — Analyse R](06-analyse-r.qmd) | Suivant : [Cas pratiques →](../case-studies/index.qmd)*

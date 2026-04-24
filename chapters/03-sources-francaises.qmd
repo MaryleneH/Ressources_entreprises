@@ -1,0 +1,289 @@
+---
+title: "Sources françaises — L'INSEE"
+subtitle: "Comprendre et exploiter les statistiques officielles françaises sur les entreprises"
+description: "Découvrir les principales bases de données et publications de l'INSEE sur les entreprises : ESANE, SIRENE, démographie d'entreprises et indices conjoncturels."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [INSEE, ESANE, SIRENE, sources françaises]
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Identifier les principales sources de données de l'INSEE sur les entreprises
+- Naviguer sur le site insee.fr pour trouver des statistiques d'entreprises
+- Lire et interpréter une publication INSEE
+- Distinguer ESANE, SIRENE et les autres bases de données majeures
+- Accéder aux données en téléchargement libre
+:::
+
+## L'INSEE : Institution, missions et organisation
+
+L'**Institut national de la statistique et des études économiques (INSEE)** est une direction générale du ministère chargé de l'Économie. Créé en 1946, il est chargé de :
+
+- **Collecter** les informations statistiques nécessaires à la connaissance de l'économie et de la société
+- **Analyser** et **publier** des études, synthèses et données statistiques
+- **Coordonner** l'activité du Service statistique public (SSP) français
+- **Fournir** à Eurostat les données statistiques nationales
+
+### Le Service statistique public (SSP)
+
+L'INSEE est la tête de réseau du **Système Statistique Public** français, qui comprend également des services statistiques ministériels (SSM) :
+
+| SSM | Ministère | Statistiques d'entreprises |
+|-----|-----------|---------------------------|
+| DARES | Travail | Emploi, conditions de travail |
+| SDES | Écologie | Environnement, énergie des entreprises |
+| DSS | Santé | Établissements de santé |
+| SIES | Enseignement | R&D, innovation |
+| DGFiP | Finances | Données fiscales des entreprises |
+
+## Les principales bases de données sur les entreprises
+
+### 📊 ESANE — Élaboration des Statistiques Annuelles d'Entreprises
+
+**ESANE** est la principale source de statistiques structurelles annuelles sur les entreprises françaises. Elle constitue le cœur du dispositif INSEE pour les entreprises.
+
+::: {.callout-note}
+## 📖 Description d'ESANE
+
+**ESANE** produit des statistiques annuelles sur la **structure** et l'**activité économique** des entreprises, couvrant l'ensemble des secteurs marchands (hors agriculture et secteur financier pour les séries longues).
+
+Elle combine :
+- Les **déclarations fiscales** (BIC, BNC, IS) — source principale
+- Les **déclarations sociales** (DADS, DSN) — pour l'emploi
+- Une **enquête sectorielle annuelle (ESA)** — pour les variables non fiscales
+
+*Source : [INSEE — ESANE](https://www.insee.fr/fr/metadonnees/source/serie/s1188)*
+:::
+
+#### Variables clés d'ESANE
+
+| Variable | Définition |
+|----------|-----------|
+| **Chiffre d'affaires HT** | Ventes de biens et services hors taxes |
+| **Valeur ajoutée** | Production - Consommations intermédiaires |
+| **Effectif salarié moyen** | Moyenne annuelle des effectifs |
+| **FBCF** | Formation brute de capital fixe |
+| **Excédent brut d'exploitation** | VA - Charges de personnel - Impôts sur production |
+| **Résultat net** | Bénéfice ou perte après impôt |
+
+#### Accéder aux données ESANE
+
+Plusieurs modalités d'accès :
+
+1. **Tableaux prêts à l'emploi** : [https://www.insee.fr/fr/statistiques/2045265](https://www.insee.fr/fr/statistiques/2045265)
+2. **Fichiers détail** : disponibles sur demande via le **CASD** (Centre d'accès sécurisé aux données)
+3. **API Indicateurs** : pour certaines séries agrégées
+
+::: {.callout-tip}
+## 💡 Conseil pratique
+
+Sur **insee.fr**, pour trouver des données ESANE :
+1. Allez dans **Statistiques** → **Entreprises**
+2. Filtrez par **Thème** : "Entreprises" et **Source** : "ESANE"
+3. Choisissez le tableau qui vous intéresse
+4. Téléchargez en **CSV** ou **XLS**
+:::
+
+### 🔎 SIRENE — Système national d'identification et du répertoire des entreprises et de leurs établissements
+
+Le **répertoire SIRENE** est la base de référence de toutes les entreprises et établissements légalement constitués en France.
+
+::: {.callout-note}
+## 📖 Description de SIRENE
+
+SIRENE contient l'ensemble des **unités légales** (personnes morales et personnes physiques) et **établissements** inscrits en France. La base est gérée par l'INSEE et mise à jour quotidiennement.
+
+Chaque entreprise est identifiée par son **SIREN** (9 chiffres) et chaque établissement par son **SIRET** (14 chiffres = SIREN + NIC).
+
+Couverture : **plus de 11 millions d'unités légales actives** (2023)
+:::
+
+#### Ce que contient SIRENE
+
+| Champ | Description |
+|-------|-------------|
+| Dénomination | Raison sociale de l'unité légale |
+| Forme juridique | SA, SARL, SAS, entreprise individuelle... |
+| Code NAF | Activité principale exercée |
+| Date de création | Date d'immatriculation |
+| Adresse | Pour chaque établissement |
+| Effectif | Tranche d'effectif salarié |
+| Statut | Actif, cessé, radié |
+
+#### Comment accéder aux données SIRENE ?
+
+| Canal | URL | Description |
+|-------|-----|-------------|
+| **API SIRENE (INSEE)** | `api.insee.fr/entreprises/sirene` | Interrogation par SIREN/SIRET |
+| **données.gouv.fr** | `data.gouv.fr/datasets/base-sirene` | Téléchargement en masse (CSV) |
+| **API Entreprise** | `api.entreprise.gouv.fr` | Pour les opérateurs publics |
+| **Annuaire des entreprises** | `annuaire-entreprises.data.gouv.fr` | Interface web grand public |
+
+### 📈 Démographie d'entreprises
+
+L'INSEE publie mensuellement des données sur les **créations** et **défaillances** d'entreprises :
+
+- **Créations d'entreprises** : nouvelles immatriculations au répertoire SIRENE
+- **Défaillances** : ouvertures de procédures collectives (redressement, liquidation judiciaire)
+- **Survie des entreprises** : suivi de cohortes à 1, 3 et 5 ans
+
+::: {.callout-note}
+## 📊 Chiffres clés (2023)
+
+En France en 2023 :
+- **~1,05 million** de créations d'entreprises (source : INSEE)
+- Dont environ **40%** de micro-entreprises (auto-entrepreneurs)
+- Taux de survie à 5 ans des entreprises créées en 2018 : **~52%**
+
+*Source : [INSEE — Démographie des entreprises, 2024](https://www.insee.fr/fr/statistiques/2015937)*
+:::
+
+### 📉 Indices de chiffre d'affaires (ICA)
+
+L'INSEE publie des **indices mensuels de chiffre d'affaires** par grand secteur d'activité. Ces indicateurs de court terme permettent de suivre l'évolution conjoncturelle de l'activité des entreprises.
+
+Ils sont disponibles pour :
+- L'industrie (IPI — Indice de production industrielle)
+- Le commerce et les services (ICA — Indice de chiffre d'affaires)
+- La construction (indicateurs sectoriels spécifiques)
+
+## Comment lire une publication INSEE ?
+
+### Structure typique d'un « INSEE Première »
+
+Les publications **INSEE Première** sont des notes de synthèse de 4 pages présentant des résultats statistiques récents. Structure habituelle :
+
+```
+1. Titre et millésime des données
+2. Principaux résultats (chiffres clés en encart)
+3. Corps de l'article avec graphiques et tableaux
+4. Sources et méthodes (encart en bas de page)
+5. Définitions des principaux termes
+```
+
+::: {.callout-tip}
+## 💡 Bonnes pratiques de lecture
+
+Avant d'exploiter une donnée INSEE, vérifiez toujours :
+1. **L'année de référence** des données
+2. **Le champ couvert** (secteurs inclus / exclus)
+3. **L'unité statistique** (entreprise, unité légale, établissement ?)
+4. **La source** (ESANE, SIRENE, enquête spécifique ?)
+5. Les **notes de bas de page** et les **ruptures de série**
+:::
+
+### Exemple d'analyse : les services aux entreprises
+
+Pour illustrer la lecture d'une source INSEE, voici un exemple de tableau de données structurelles :
+
+| Secteur (NAF) | Nbre d'entreprises | CA HT (Md€) | VA (Md€) | Emploi (milliers ETP) |
+|---------------|-------------------|-------------|----------|----------------------|
+| Services informatiques (62) | ~97 000 | ~70 | ~42 | ~480 |
+| Activités juridiques et comptables (69) | ~145 000 | ~38 | ~26 | ~320 |
+| Conseil de gestion (70.2) | ~45 000 | ~18 | ~12 | ~130 |
+| Publicité et études de marché (73) | ~35 000 | ~20 | ~10 | ~110 |
+
+*Données indicatives basées sur les ordres de grandeur publiés par l'INSEE pour l'année 2021. Source : [ESANE — INSEE](https://www.insee.fr/fr/statistiques/2045265)*
+
+::: {.callout-warning}
+## ⚠️ Données illustratives
+
+Les chiffres ci-dessus sont des **ordres de grandeur** issus des publications INSEE. Pour des analyses précises, téléchargez toujours les données officielles directement depuis [insee.fr](https://www.insee.fr/fr/statistiques/2045265) et vérifiez le millésime disponible.
+:::
+
+## L'API INSEE — Accès programmatique aux données
+
+L'INSEE propose une **API REST** pour accéder à ses données de manière programmatique :
+
+### API Données (BDM — Banque de données macroéconomiques)
+
+```
+Base URL : https://api.insee.fr/series/BDM/V1/
+```
+
+Exemples d'appels :
+- `GET /data/SERIES_BDM/{idSerie}` — récupérer une série temporelle
+- `GET /metadataset/SERIES_BDM/{idSerie}` — métadonnées d'une série
+
+### API SIRENE
+
+```
+Base URL : https://api.insee.fr/entreprises/sirene/V3.11/
+```
+
+Exemples d'appels :
+- `GET /siren/{siren}` — informations sur une unité légale
+- `GET /siret/{siret}` — informations sur un établissement
+- `GET /siren?q=denominationUniteLegale:CARREFOUR` — recherche par dénomination
+
+::: {.callout-note}
+## 📌 Clé d'API
+
+L'accès à l'API INSEE nécessite une **clé d'API gratuite**, à obtenir sur :
+[https://api.insee.fr/catalogue](https://api.insee.fr/catalogue)
+
+Le taux limite (rate limiting) est de 30 requêtes/minute pour les API gratuites.
+:::
+
+## Synthèse des sources INSEE sur les entreprises
+
+```{mermaid}
+mindmap
+  root((INSEE))
+    Statistiques structurelles
+      ESANE
+        Données annuelles
+        CA, VA, emploi, FBCF
+        Secteur marchand
+    Répertoires
+      SIRENE
+        Tous secteurs
+        Unités légales et établissements
+        Mis à jour quotidiennement
+    Court terme
+      Indices ICA/IPI
+        Mensuel
+        Évolution conjoncturelle
+    Démographie
+      Créations d'entreprises
+        Mensuel
+      Défaillances
+        Mensuel
+      Survie
+        Annuel
+```
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. **ESANE** = statistiques structurelles annuelles (CA, VA, emploi, FBCF)
+2. **SIRENE** = répertoire de toutes les entreprises et établissements
+3. Les publications INSEE précisent toujours leur champ, source et millésime
+4. Les API INSEE permettent un accès programmatique aux données (clé gratuite)
+5. Toujours vérifier l'**année de référence** et le **champ couvert**
+:::
+
+## Ressources complémentaires
+
+- 🔗 [Portail Entreprises — INSEE](https://www.insee.fr/fr/statistiques?debut=0&theme=6)
+- 🔗 [Base ESANE — Résultats par secteur](https://www.insee.fr/fr/statistiques/2045265)
+- 🔗 [Répertoire SIRENE sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+- 🔗 [API INSEE — Documentation](https://api.insee.fr/catalogue)
+- 🔗 [Annuaire des entreprises](https://annuaire-entreprises.data.gouv.fr)
+- 🔗 [Démographie des entreprises (INSEE Première)](https://www.insee.fr/fr/statistiques/2015937)
+
+---
+
+*Chapitre précédent : [Module 02 — Concepts](02-concepts.qmd) | Chapitre suivant : [Module 04 — Sources européennes →](04-sources-europeennes.qmd)*
+
+::: {.callout-note}
+## 🔗 Module connexe
+
+Vous exploitez les sources INSEE dans un contexte d'analyse sectorielle lié à la défense ou à la politique industrielle ? Découvrez comment articuler ces sources avec les travaux du SSM Défense dans le **[Module 08 — Insee, Eurostat & SSM Défense](insee-eurostat-ssm-defense.qmd)**.
+:::

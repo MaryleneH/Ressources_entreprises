@@ -1,0 +1,261 @@
+---
+title: "Sources européennes — Eurostat"
+subtitle: "Statistiques structurelles et comparaisons internationales"
+description: "Explorer les Structural Business Statistics d'Eurostat, comprendre l'harmonisation européenne et utiliser les données pour des comparaisons internationales."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [Eurostat, SBS, NACE, comparaisons européennes]
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Identifier les principales bases de données Eurostat sur les entreprises (SBS, EBS)
+- Naviguer sur le portail Eurostat pour trouver des données
+- Comprendre les enjeux de l'harmonisation statistique européenne
+- Utiliser le navigateur de données Eurostat
+- Télécharger et interpréter des données comparatives entre pays
+:::
+
+## Eurostat : L'office statistique de l'Union européenne
+
+**Eurostat** est l'office statistique de l'Union européenne, basé à Luxembourg. Sa mission est de fournir des statistiques de haute qualité pour l'Europe, permettant des **comparaisons valides entre les États membres**.
+
+Eurostat ne collecte pas directement les données : il **centralise** les données transmises par les offices statistiques nationaux (comme l'INSEE pour la France) selon des normes communes.
+
+```{mermaid}
+flowchart LR
+    A[INSEE 🇫🇷] --> E[EUROSTAT 🇪🇺]
+    B[Destatis 🇩🇪] --> E
+    C[INE 🇪🇸] --> E
+    D[ISTAT 🇮🇹] --> E
+    F[CBS 🇳🇱] --> E
+    G[ONS 🇬🇧\n&#40;historique&#41;] -.->|"hors UE\ndepuis 2021"| E
+    E --> H[Publications\net base de données]
+    E --> I[Eurostat\nData Browser]
+```
+
+## Les European Business Statistics (EBS)
+
+### Du SBS vers l'EBS
+
+Depuis le **1er janvier 2021**, le cadre réglementaire des statistiques d'entreprises européennes est défini par le **règlement EBS** (European Business Statistics — Règlement UE 2019/2152), qui remplace le règlement SBS (Structural Business Statistics) de 2008.
+
+| Cadre | Règlement | Période |
+|-------|-----------|---------|
+| **SBS** (Structural Business Statistics) | UE n°295/2008 | Jusqu'à 2020 |
+| **EBS** (European Business Statistics) | UE n°2019/2152 | À partir de 2021 |
+
+Le règlement EBS modernise la production des statistiques en :
+- Intégrant les **sources administratives** (réduction des enquêtes)
+- Harmonisant les **concepts et définitions**
+- Améliorant la **couverture** (nouvelles variables, nouvelles activités)
+- Introduisant un cadre **flexible** pour de nouvelles statistiques
+
+### Variables clés des SBS/EBS
+
+Les Structural Business Statistics couvrent les variables suivantes pour chaque pays et secteur NACE :
+
+| Variable | Code Eurostat | Définition |
+|----------|---------------|-----------|
+| Nombre d'entreprises | `V11110` | Unités actives dans l'économie |
+| Personnes occupées | `V16110` | Salariés + non-salariés |
+| Salariés | `V16130` | Personnes en emploi salarié |
+| Chiffre d'affaires | `V12110` | Ventes de biens et services |
+| Valeur de la production | `V12120` | Production de la période |
+| Valeur ajoutée au coût des facteurs | `V12150` | VA mesure harmonisée |
+| Achats de B&S | `V12130` | Consommations intermédiaires |
+| FBCF | `V15110` | Investissement en capital fixe |
+| Masse salariale | `V13110` | Coûts de personnels totaux |
+
+## Le navigateur de données Eurostat
+
+### Interface Eurostat Data Browser
+
+Le **Eurostat Data Browser** est l'interface principale pour accéder aux données :
+
+👉 [https://ec.europa.eu/eurostat/databrowser](https://ec.europa.eu/eurostat/databrowser)
+
+#### Structure des codes de jeux de données SBS
+
+| Jeu de données | Code | Description |
+|----------------|------|-------------|
+| SBS par activité | `sbs_na_ind_r2` | Industrie |
+| SBS par activité | `sbs_na_con_r2` | Construction |
+| SBS par activité | `sbs_na_trade_r2` | Commerce |
+| SBS par activité | `sbs_na_serv_r2` | Services |
+| SBS par taille | `sbs_sc_ind_r2` | Industrie par taille |
+| Démographie | `bd_9bd_sz_cl_r2` | Créations, fermetures par taille |
+
+#### Comment télécharger des données Eurostat ?
+
+::: {.callout-tip}
+## 💡 Procédure pas à pas
+
+1. Allez sur [https://ec.europa.eu/eurostat/databrowser](https://ec.europa.eu/eurostat/databrowser)
+2. Cherchez le dataset souhaité (ex: `sbs_na_ind_r2`)
+3. Sélectionnez les **pays**, **années** et **variables** souhaités
+4. Cliquez sur **Download** → CSV, Excel ou JSON
+5. Pour les **métadonnées**, cliquez sur l'icône **(i)** à côté du jeu de données
+:::
+
+### API Eurostat
+
+Eurostat propose une **API REST** (basée sur le format SDMX) pour accéder aux données :
+
+```
+Base URL: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/
+```
+
+Exemple d'URL pour les SBS de l'industrie :
+```
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_na_ind_r2
+?format=JSON&lang=FR&geo=FR&nace_r2=C&indic_sb=V12110&time=2020,2021
+```
+
+## Comparaisons européennes : enjeux et méthodes
+
+### Les défis de la comparabilité
+
+Même avec un cadre harmonisé, comparer des pays européens nécessite des précautions :
+
+::: {.callout-warning}
+## ⚠️ Points de vigilance
+
+1. **Taille des économies** : toujours comparer en proportion (ex: CA/habitant, VA/salarié) plutôt qu'en valeur absolue
+2. **Champ couvert** : certains pays ont des exclusions sectorielles
+3. **Définitions nationales résiduelles** : certaines variables restent sujettes à des interprétations nationales
+4. **Délais de publication** : les années les plus récentes peuvent manquer pour certains pays
+5. **Ruptures de série** : vérifier les notes méthodologiques lors de changements de référentiel
+:::
+
+### Indicateurs clés pour les comparaisons
+
+Pour des comparaisons internationales robustes, privilégiez :
+
+| Indicateur | Formule | Interprétation |
+|------------|---------|----------------|
+| **Taux de VA** | VA / CA | Efficacité et intensité de transformation |
+| **Coût apparent du travail** | Masse salariale / Nb de salariés | Niveau de rémunération sectoriel |
+| **Productivité apparente** | VA / Personnes occupées | Productivité du travail |
+| **Taux d'investissement** | FBCF / VA | Effort d'investissement |
+| **Poids PME** | Part des <250 salariés dans le total | Structure du tissu entrepreneurial |
+
+### Exemple de comparaison : industrie manufacturière (Section C)
+
+*Données illustratives basées sur les publications Eurostat SBS pour l'année de référence 2021*
+
+| Pays | VA (Md€) | VA/salarié (k€) | Taux de VA (%) |
+|------|----------|-----------------|----------------|
+| 🇩🇪 Allemagne | ~740 | ~68 | ~28% |
+| 🇫🇷 France | ~240 | ~62 | ~32% |
+| 🇮🇹 Italie | ~270 | ~52 | ~27% |
+| 🇪🇸 Espagne | ~160 | ~46 | ~28% |
+| 🇵🇱 Pologne | ~115 | ~30 | ~27% |
+
+::: {.callout-warning}
+## ⚠️ Données indicatives
+
+Les chiffres ci-dessus sont des **ordres de grandeur** basés sur les publications Eurostat SBS. Pour des analyses précises, téléchargez les données officielles depuis le [Data Browser Eurostat](https://ec.europa.eu/eurostat/databrowser/view/sbs_na_ind_r2).
+:::
+
+## La nomenclature NACE Rev. 2
+
+La **NACE Rev. 2** est la classification officielle des activités économiques dans l'Union européenne, définie par le règlement CE n° 1893/2006.
+
+### Structure de la NACE Rev. 2
+
+```{mermaid}
+flowchart TD
+    A["Section A — Agriculture, sylviculture et pêche"]
+    B["Section B — Industries extractives"]
+    C["Section C — Industrie manufacturière\n(10 à 33) — 24 divisions"]
+    G["Section G — Commerce de gros et de détail\n(45 à 47) — 3 divisions"]
+    J["Section J — Information et communication\n(58 à 63) — 6 divisions"]
+    K["Section K — Activités financières\n(64 à 66) — 3 divisions"]
+
+    style C fill:#dbeafe,stroke:#1e40af
+    style G fill:#d1fae5,stroke:#065f46
+    style J fill:#fef3c7,stroke:#92400e
+```
+
+### Exemples de codes NACE (niveaux 2 à 4)
+
+| Code | Niveau | Intitulé |
+|------|--------|----------|
+| `C` | Section | Industrie manufacturière |
+| `10` | Division | Industrie alimentaire |
+| `10.1` | Groupe | Transformation et conservation de la viande |
+| `10.11` | Classe | Transformation et conservation de la viande de boucherie |
+| `62` | Division | Programmation, conseil et autres activités informatiques |
+| `62.0` | Groupe | Programmation, conseil et autres activités informatiques |
+| `62.01` | Classe | Programmation informatique |
+
+## Cas d'usage : Analyse du secteur des services informatiques (NACE 62)
+
+### Données disponibles sur Eurostat
+
+Le dataset `sbs_na_serv_r2` contient les données des services par activité NACE et par pays.
+
+**Variables d'intérêt pour NACE 62 :**
+
+| Variable | Code |
+|----------|------|
+| Nombre d'entreprises | V11110 |
+| Chiffre d'affaires | V12110 |
+| Valeur ajoutée | V12150 |
+| Personnes occupées | V16110 |
+
+::: {.callout-note}
+## 📊 Poids du numérique en Europe (NACE 62 + 63)
+
+D'après les données Eurostat SBS :
+- Le secteur ICT emploie **plus de 4,5 millions de personnes** dans l'UE-27 (2021)
+- La France représente environ **15%** de la VA ICT de l'UE
+- L'Allemagne en représente environ **22%**
+
+*Source : Eurostat SBS, dataset `sbs_na_serv_r2`, code NACE 62+63*
+:::
+
+## Autres ressources Eurostat pour les entreprises
+
+| Publication / Base | Thème | Lien |
+|--------------------|-------|------|
+| **Business Demography** | Créations, fermetures, emploi | [bd_9bd_sz_cl_r2](https://ec.europa.eu/eurostat/databrowser/view/bd_9bd_sz_cl_r2) |
+| **R&D Business** | Dépenses R&D des entreprises | [rd_e_berdindr2](https://ec.europa.eu/eurostat/databrowser/view/rd_e_berdindr2) |
+| **ICT Usage in Enterprises** | Numérisation des entreprises | [isoc_e_use](https://ec.europa.eu/eurostat/databrowser/view/isoc_e_use) |
+| **Foreign Affiliates (FATS)** | Entreprises étrangères en UE | [fats_g1a_08](https://ec.europa.eu/eurostat/databrowser/view/fats_g1a_08) |
+| **International Trade in Services** | Échanges de services | [bop_its6_det](https://ec.europa.eu/eurostat/databrowser/view/bop_its6_det) |
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. Eurostat centralise les données nationales selon des normes harmonisées
+2. Le règlement **EBS 2019/2152** définit le cadre actuel depuis 2021
+3. Le **Data Browser** est l'outil principal pour accéder aux données
+4. La **NACE Rev. 2** permet des comparaisons sectorielles entre pays
+5. Toujours comparer des **ratios** (VA/salarié, taux de VA) plutôt que des valeurs absolues
+:::
+
+## Ressources complémentaires
+
+- 🔗 [Eurostat Data Browser](https://ec.europa.eu/eurostat/databrowser)
+- 🔗 [Structural Business Statistics — Eurostat](https://ec.europa.eu/eurostat/web/structural-business-statistics)
+- 🔗 [Statistics Explained — Business statistics](https://ec.europa.eu/eurostat/statistics-explained/index.php/Business_statistics)
+- 🔗 [Règlement EBS 2019/2152](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2152)
+- 🔗 [NACE Rev. 2 — Manuel complet (PDF)](https://ec.europa.eu/eurostat/documents/3859598/5902521/KS-RA-07-015-EN.PDF)
+- 🔗 [Méthodes et qualité Eurostat](https://ec.europa.eu/eurostat/web/quality)
+
+---
+
+*Chapitre précédent : [Module 03 — Sources françaises](03-sources-francaises.qmd) | Chapitre suivant : [Module 05 — Open Data →](05-opendata.qmd)*
+
+::: {.callout-note}
+## 🔗 Module connexe
+
+Vous utilisez Eurostat pour des comparaisons industrielles ou des analyses sectorielles à dimension européenne ? Le **[Module 08 — Insee, Eurostat & SSM Défense](insee-eurostat-ssm-defense.qmd)** montre comment ces données SBS peuvent être combinées avec les sources institutionnelles spécifiques à la défense.
+:::

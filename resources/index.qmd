@@ -1,0 +1,238 @@
+---
+title: "Ressources et références"
+subtitle: "Sources officielles, glossaire et bibliographie"
+description: "Toutes les ressources pour aller plus loin : liens vers les sources officielles, glossaire des termes statistiques, bibliographie et documentation technique."
+author: "Formation StatEntreprises"
+date: last-modified
+toc: true
+---
+
+## Liens officiels essentiels
+
+### 🇫🇷 Sources françaises — INSEE
+
+| Ressource | Description | Lien |
+|-----------|-------------|------|
+| **Portail Entreprises** | Toutes les statistiques sur les entreprises | [insee.fr/entreprises](https://www.insee.fr/fr/statistiques?debut=0&theme=6) |
+| **ESANE** | Statistiques structurelles annuelles | [Résultats sectoriels](https://www.insee.fr/fr/statistiques/2045265) |
+| **Démographie** | Créations et défaillances | [Séries mensuelles](https://www.insee.fr/fr/statistiques/2015937) |
+| **Survie des entreprises** | Taux de survie par cohorte | [Cohortes 2014-2021](https://www.insee.fr/fr/statistiques/2832036) |
+| **Indices ICA** | Indices de chiffre d'affaires | [Court terme](https://www.insee.fr/fr/statistiques/1375465) |
+| **Définitions** | Glossaire officiel INSEE | [Métadonnées](https://www.insee.fr/fr/metadonnees/definition) |
+| **NAF rév. 2** | Nomenclature officielle | [Guide NAF](https://www.insee.fr/fr/information/2406147) |
+| **API INSEE** | Accès programmatique | [Catalogue API](https://api.insee.fr/catalogue) |
+
+### 🇪🇺 Sources européennes — Eurostat
+
+| Ressource | Description | Lien |
+|-----------|-------------|------|
+| **Data Browser** | Interface principale d'accès aux données | [databrowser.ec.europa.eu](https://ec.europa.eu/eurostat/databrowser) |
+| **SBS/EBS** | Statistiques structurelles d'entreprises | [SBS web](https://ec.europa.eu/eurostat/web/structural-business-statistics) |
+| **Statistics Explained** | Articles pédagogiques | [Entreprises](https://ec.europa.eu/eurostat/statistics-explained/index.php/Business_statistics) |
+| **NACE Rev. 2** | Classification européenne des activités | [Manuel NACE (PDF)](https://ec.europa.eu/eurostat/documents/3859598/5902521/KS-RA-07-015-EN.PDF) |
+| **API SDMX** | Accès programmatique aux données | [API Documentation](https://ec.europa.eu/eurostat/web/main/data/web-services) |
+| **Règlement EBS** | Cadre légal 2019/2152 | [EUR-Lex](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2152) |
+
+### 🔓 Open Data — data.gouv.fr
+
+| Jeu de données | Producteur | Lien |
+|----------------|-----------|------|
+| **Base SIRENE** | INSEE | [Télécharger](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/) |
+| **Registre national entreprises** | INPI | [RNE](https://www.data.gouv.fr/fr/datasets/registre-national-des-entreprises/) |
+| **BODACC** | DILA | [Télécharger](https://www.data.gouv.fr/fr/datasets/bodacc/) |
+| **Comptes annuels INPI** | INPI | [Open data comptes](https://www.data.gouv.fr/fr/datasets/donnees-ouvertes-du-registre-national-des-entreprises/) |
+| **Défaillances** | Banque de France | [Défaillances](https://www.data.gouv.fr/fr/datasets/defaillances-dentreprises/) |
+| **Aides France Relance** | DINUM/ADEME | [France Relance](https://www.data.gouv.fr/fr/datasets/) |
+
+### 🛠️ Outils et API
+
+| Outil | Description | Lien |
+|-------|-------------|------|
+| **Annuaire entreprises** | Recherche entreprise grand public | [annuaire-entreprises.data.gouv.fr](https://annuaire-entreprises.data.gouv.fr) |
+| **API Entreprise** | API pour opérateurs publics | [api.entreprise.gouv.fr](https://api.entreprise.gouv.fr) |
+| **API Recherche** | Recherche plein texte | [api.recherche-entreprises.fabrique.social.gouv.fr](https://api.recherche-entreprises.fabrique.social.gouv.fr) |
+| **Schema.data.gouv.fr** | Schémas de données standardisés | [schema.data.gouv.fr](https://schema.data.gouv.fr) |
+
+---
+
+## 📖 Glossaire des termes statistiques
+
+### A
+
+**Activité principale exercée (APE)**
+: Code NAF attribué par l'INSEE à chaque unité légale ou établissement, correspondant à son activité dominante. Synonyme de code APE ou code NAF.
+
+### B
+
+**BODACC** (Bulletin officiel des annonces civiles et commerciales)
+: Publication officielle française regroupant les annonces légales des entreprises : ventes, cessions, procédures collectives, dépôts de comptes.
+
+### C
+
+**Chiffre d'affaires (CA)**
+: Montant total des ventes de biens et de services facturées par une entreprise hors taxes (HT) au cours d'une période. Indicateur de taille mais pas de rentabilité.
+
+**Consommations intermédiaires**
+: Biens et services achetés par l'entreprise et utilisés dans le processus de production (matières premières, sous-traitance, énergie...).
+
+**Cohorte**
+: Ensemble des entreprises créées la même année, suivi dans le temps pour analyser leur survie, croissance ou fermeture.
+
+### E
+
+**EBE** (Excédent Brut d'Exploitation)
+: Indicateur de la performance opérationnelle d'une entreprise = VA - charges de personnel - impôts et taxes sur la production + subventions d'exploitation. Approximativement équivalent à l'EBITDA.
+
+**ESANE** (Élaboration des Statistiques Annuelles d'Entreprises)
+: Dispositif INSEE de production de statistiques structurelles annuelles sur les entreprises, combinant sources fiscales, sociales et enquêtes sectorielles.
+
+**Établissement**
+: Unité géographique de production, identifiée par un numéro SIRET. Un même opérateur économique peut avoir plusieurs établissements.
+
+**Entreprise (sens LME)**
+: La plus petite combinaison d'unités légales constituant une unité organisationnelle de production disposant d'une certaine autonomie de décision.
+
+**ETP** (Équivalent Temps Plein)
+: Unité de mesure de l'emploi convertissant les temps partiels en équivalent de postes à temps complet.
+
+### F
+
+**FBCF** (Formation Brute de Capital Fixe)
+: Investissement des entreprises en capital fixe (machines, bâtiments, équipements, actifs incorporels). Synonyme : IBCF (Investissements bruts en capital fixe).
+
+### G
+
+**Groupe d'entreprises**
+: Ensemble d'entreprises contrôlées directement ou indirectement par une même société mère. Données compilées dans LIFI (Liaisons financières entre sociétés).
+
+### L
+
+**LIFI** (Liaisons financières entre sociétés)
+: Source INSEE recensant les liens capitalistiques entre sociétés, permettant d'identifier les groupes d'entreprises.
+
+**LME** (Loi de modernisation de l'économie)
+: Loi française de 2008 ayant introduit la définition statistique de l'entreprise comme unité organisationnelle, distincte de l'unité légale.
+
+### M
+
+**Micro-entreprise**
+: Au sens statistique européen : entreprise occupant moins de 10 personnes et dont le chiffre d'affaires annuel ou le total du bilan n'excède pas 2 millions d'euros.
+
+**PME** (Petite et Moyenne Entreprise)
+: Entreprise occupant moins de 250 personnes et dont le CA annuel n'excède pas 50 M€ ou le total du bilan 43 M€.
+
+### N
+
+**NAF** (Nomenclature d'Activités Française)
+: Classification officielle française des activités économiques, déclinée en 21 sections, 88 divisions, 272 groupes, 615 classes et 731 sous-classes. Version actuelle : NAF rév. 2 (2008).
+
+**NACE** (Nomenclature statistique des Activités économiques dans la Communauté Européenne)
+: Classification européenne harmonisée des activités économiques, dont la NAF française est une déclinaison nationale. Version actuelle : NACE rév. 2.
+
+**NIC** (Numéro Interne de Classement)
+: Suffixe de 5 chiffres ajouté au SIREN pour former le SIRET, identifiant un établissement au sein d'une unité légale.
+
+### P
+
+**Productivité apparente du travail**
+: Rapport entre la valeur ajoutée et le nombre de personnes occupées (ou d'ETP). Mesure la richesse créée par unité de travail.
+
+### S
+
+**SBS** (Structural Business Statistics)
+: Statistiques structurelles d'entreprises harmonisées au niveau européen, produites par Eurostat à partir des données nationales. Remplacées depuis 2021 par l'EBS dans le cadre réglementaire.
+
+**SIREN**
+: Numéro d'identification des entreprises et des personnes physiques : 9 chiffres, attribué par l'INSEE lors de l'immatriculation.
+
+**SIRENE** (Système national d'identification et du répertoire des entreprises et de leurs établissements)
+: Répertoire géré par l'INSEE recensant toutes les unités légales et établissements immatriculés en France.
+
+**SIRET**
+: Numéro d'identification d'un établissement : SIREN (9 chiffres) + NIC (5 chiffres) = 14 chiffres.
+
+### T
+
+**Taux de création**
+: Nombre de créations d'entreprises rapporté au stock d'entreprises actives en début de période. Indicateur de dynamisme entrepreneurial.
+
+**Taux de valeur ajoutée**
+: Rapport entre la valeur ajoutée et le chiffre d'affaires, exprimé en pourcentage. Varie fortement selon les secteurs (ex: commerce ~17%, services informatiques ~75%).
+
+**TPE** (Très Petite Entreprise)
+: Entreprise occupant moins de 10 personnes (également appelée micro-entreprise au sens européen).
+
+### U
+
+**Unité légale**
+: Entité juridiquement reconnue par la loi d'un État (personne morale ou physique). Identifiée par son numéro SIREN.
+
+### V
+
+**Valeur ajoutée (VA)**
+: Richesse créée par l'entreprise dans son processus de production = Production - Consommations intermédiaires. Agrégée au niveau macroéconomique, la VA contribue au PIB.
+
+---
+
+## 📚 Bibliographie et documentation technique
+
+### Textes réglementaires
+
+- **Règlement (UE) 2019/2152** relatif aux statistiques européennes d'entreprises — [EUR-Lex](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2152)
+- **Règlement (CE) n° 1893/2006** établissant la NACE rév. 2 — [EUR-Lex](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32006R1893)
+- **Loi n° 2008-776** de modernisation de l'économie (LME) — [Légifrance](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019283050)
+- **Loi du 7 juin 1951** sur l'obligation, la coordination et le secret en matière de statistiques — [Légifrance](https://www.legifrance.gouv.fr)
+
+### Guides méthodologiques
+
+- **INSEE** — *Guide de lecture des statistiques d'entreprises* — [insee.fr](https://www.insee.fr/fr/information/2388023)
+- **Eurostat** — *Business statistics manual* — [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/web/structural-business-statistics/methodology)
+- **OCDE** — *Frascati Manual 2015* (R&D statistics) — [oecd.org](https://www.oecd.org/publications/frascati-manual-2015-9789264239012-en.htm)
+- **OCDE** — *Oslo Manual 2018* (Innovation statistics) — [oecd.org](https://www.oecd.org/publications/oslo-manual-2018-9789264304604-en.htm)
+
+### Documentation des outils
+
+- **Quarto** — *Guide officiel Quarto* — [quarto.org](https://quarto.org/docs/guide/)
+- **R for Data Science** — Hadley Wickham et al. — [r4ds.hadley.nz](https://r4ds.hadley.nz)
+- **ggplot2 Book** — Hadley Wickham — [ggplot2-book.org](https://ggplot2-book.org)
+- **Python Data Science Handbook** — Jake VanderPlas — [jakevdp.github.io](https://jakevdp.github.io/PythonDataScienceHandbook/)
+
+### Publications de référence
+
+- **INSEE Première** — Publications synthétiques sur les statistiques économiques françaises — [insee.fr](https://www.insee.fr/fr/statistiques/publications/type/1?debut=0)
+- **Tableaux de l'Économie Française** — Publication annuelle INSEE — [TEF 2024](https://www.insee.fr/fr/statistiques/7759108)
+- **L'Économie française** — Édition 2023, INSEE Références — [insee.fr](https://www.insee.fr/fr/statistiques)
+
+---
+
+## 🔧 Environnement technique recommandé
+
+```yaml
+# Environnement R recommandé
+R: ">=4.3.0"
+packages:
+  - tidyverse: ">=2.0.0"
+  - httr2: ">=1.0.0"
+  - jsonlite: ">=1.8.0"
+  - sf: ">=1.0.0"         # Données géographiques
+  - knitr: ">=1.45"
+  - DT: ">=0.31"
+
+# Environnement Python recommandé
+python: ">=3.10"
+packages:
+  - pandas: ">=2.0.0"
+  - requests: ">=2.31.0"
+  - plotly: ">=5.18.0"
+  - matplotlib: ">=3.8.0"
+  - geopandas: ">=0.14.0"  # Données géographiques
+  - numpy: ">=1.26.0"
+
+# Outils de développement
+quarto: ">=1.4.0"
+git: ">=2.40.0"
+```
+
+---
+
+*Formation StatEntreprises — Contenu basé sur des sources officielles vérifiées : [INSEE](https://www.insee.fr), [Eurostat](https://ec.europa.eu/eurostat), [data.gouv.fr](https://www.data.gouv.fr) — Licence CC BY 4.0*

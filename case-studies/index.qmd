@@ -1,0 +1,333 @@
+---
+title: "Cas pratiques"
+subtitle: "Quatre études de cas approfondies sur les statistiques d'entreprises"
+description: "Mettre en pratique les connaissances acquises avec des études de cas réels : démographie d'entreprises, comparaison sectorielle, comparaison européenne, analyse régionale."
+author: "Formation StatEntreprises"
+date: last-modified
+toc: true
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs des cas pratiques
+
+Ces quatre études de cas vous permettront de :
+
+- Appliquer les méthodes d'analyse vues dans les chapitres précédents
+- Travailler sur des problématiques réelles issues de l'actualité économique
+- Pratiquer avec R ou Python selon votre préférence
+- Produire des analyses reproductibles et documentées
+:::
+
+## Cas 1 — Analyser la démographie d'entreprises
+
+### Problématique
+
+La **démographie d'entreprises** (créations, défaillances, survie) est un indicateur clé de la vitalité économique d'un territoire. Comment évolue-t-elle en France depuis 2019 ? L'essor des micro-entreprises a-t-il modifié les tendances ?
+
+### Source des données
+
+| Source | URL | Format |
+|--------|-----|--------|
+| INSEE — Créations d'entreprises | [insee.fr](https://www.insee.fr/fr/statistiques/2015937) | XLS, CSV |
+| INSEE — Défaillances | [insee.fr](https://www.insee.fr/fr/statistiques/1893220) | XLS, CSV |
+| data.gouv.fr — BODACC | [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/bodacc/) | JSON, CSV |
+
+### Données illustratives
+
+```{r}
+#| label: cas1-demo-data
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(knitr)
+
+# Données illustratives basées sur les publications INSEE
+# Source : https://www.insee.fr/fr/statistiques/2015937
+demo_data <- tibble(
+  annee = 2019:2023,
+  creations_totales = c(815000, 848000, 995000, 1071000, 1050000),
+  creations_micro   = c(453000, 490000, 620000, 660000, 640000),
+  creations_classiques = c(362000, 358000, 375000, 411000, 410000),
+  defaillances      = c(52000, 32000, 28000, 42000, 55000)
+) |>
+  mutate(
+    pct_micro = round(creations_micro / creations_totales * 100, 1),
+    solde_net = creations_totales - defaillances
+  )
+
+kable(
+  demo_data,
+  col.names = c("Année", "Créations totales", "Micro-entr.", "Classiques",
+                "Défaillances", "% Micro", "Solde net"),
+  format.args = list(big.mark = " "),
+  caption = "Démographie d'entreprises en France 2019-2023 (données illustratives basées sur INSEE)"
+)
+```
+
+### Visualisation
+
+```{r}
+#| label: fig-cas1-evolution
+#| fig-cap: "Évolution des créations et défaillances d'entreprises en France 2019-2023 (données illustratives)"
+#| fig-height: 5
+#| fig-width: 9
+
+demo_long <- demo_data |>
+  select(annee, creations_micro, creations_classiques, defaillances) |>
+  pivot_longer(-annee, names_to = "categorie", values_to = "nombre") |>
+  mutate(categorie = case_match(categorie,
+    "creations_micro"     ~ "Créations — Micro-entreprises",
+    "creations_classiques" ~ "Créations — Autres",
+    "defaillances"        ~ "Défaillances"
+  ))
+
+ggplot(demo_long, aes(x = annee, y = nombre, fill = categorie)) +
+  geom_col(data = filter(demo_long, categorie != "Défaillances")) +
+  geom_line(data = filter(demo_long, categorie == "Défaillances"),
+            aes(color = categorie, group = 1), linewidth = 1.5) +
+  geom_point(data = filter(demo_long, categorie == "Défaillances"),
+             aes(color = categorie), size = 3) +
+  scale_fill_manual(values = c("#bfdbfe", "#1a56db")) +
+  scale_color_manual(values = c("#dc2626")) +
+  scale_y_continuous(labels = scales::number_format(big.mark = " ", scale = 1e-3, suffix = "k")) +
+  scale_x_continuous(breaks = 2019:2023) +
+  labs(
+    title = "Démographie d'entreprises en France (2019-2023)",
+    subtitle = "Données illustratives — remplacer par les données officielles INSEE",
+    x = NULL, y = "Nombre d'entreprises",
+    fill = NULL, color = NULL,
+    caption = "Source : Structure basée sur les publications INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", plot.title = element_text(face = "bold"),
+        plot.caption = element_text(color = "#9ca3af", hjust = 0))
+```
+
+### Questions d'analyse
+
+::: {.callout-note}
+## 📝 Questions pour guider l'analyse
+
+1. Quelle est la part des micro-entreprises dans les créations en 2023 ? Comment a-t-elle évolué depuis 2019 ?
+2. Comment interpréter la chute des défaillances en 2020-2021 malgré la crise COVID ?
+3. Calculez le **taux de création net** (créations - défaillances / stock total d'entreprises).
+4. Comparez avec les données Eurostat Business Demography pour d'autres pays de l'UE.
+:::
+
+---
+
+## Cas 2 — Comparer des secteurs d'activité
+
+### Problématique
+
+Certains secteurs créent plus de valeur que d'autres pour un niveau d'emploi donné. Comment comparer objectivement la **performance économique** des grands secteurs français ?
+
+### Analyse : Matrice performance sectorielle
+
+```{r}
+#| label: cas2-secteurs
+
+# Données illustratives ESANE 2022
+secteurs <- tibble(
+  section = c("C","F","G","H","I","J","M","N"),
+  libelle = c("Industrie manuf.","Construction","Commerce","Transports",
+              "Hébergement-Rest.","Info-comm.","Services spéc.","Services adm."),
+  ca   = c(820, 310, 1680, 280, 95, 240, 310, 210),
+  va   = c(230, 95, 280, 85, 35, 115, 140, 80),
+  emp  = c(3100, 1700, 3300, 1300, 1200, 1000, 1800, 2200)
+) |>
+  mutate(
+    taux_va     = round(va / ca * 100, 1),
+    productivite = round(va * 1000 / emp, 1),
+    ca_moy_emp  = round(ca * 1000 / emp, 0)
+  )
+
+kable(
+  secteurs |> select(-section),
+  col.names = c("Secteur", "CA (Md€)", "VA (Md€)", "Emploi (k)", "Taux VA (%)",
+                "Productiv. (k€/emp)", "CA/emp (k€)"),
+  caption = "Performance économique des secteurs — France 2022 (données illustratives basées sur ESANE)",
+  format.args = list(big.mark = " ")
+)
+```
+
+```{r}
+#| label: fig-cas2-matrix
+#| fig-cap: "Matrice productivité / taux de valeur ajoutée par secteur (données illustratives)"
+#| fig-height: 6
+#| fig-width: 9
+
+ggplot(secteurs, aes(x = taux_va, y = productivite, size = emp, label = section)) +
+  geom_point(aes(color = ca), alpha = 0.8) +
+  geom_text(nudge_x = 0.8, nudge_y = 1, fontface = "bold", size = 3.5, color = "#1e40af") +
+  scale_size_continuous(range = c(4, 18), name = "Emploi (k)") +
+  scale_color_gradient(low = "#bfdbfe", high = "#1a56db", name = "CA (Md€)") +
+  geom_hline(yintercept = mean(secteurs$productivite), linetype = "dashed", color = "#9ca3af") +
+  geom_vline(xintercept = mean(secteurs$taux_va), linetype = "dashed", color = "#9ca3af") +
+  annotate("text", x = mean(secteurs$taux_va) + 0.5, y = min(secteurs$productivite),
+           label = "Taux VA moyen", size = 3, color = "#9ca3af", hjust = 0) +
+  labs(
+    title = "Matrice productivité / taux de valeur ajoutée par section NAF",
+    subtitle = "France 2022 — données illustratives (taille des bulles ∝ emploi salarié)",
+    x = "Taux de valeur ajoutée (VA / CA en %)",
+    y = "Productivité apparente du travail (VA k€ / emploi)",
+    caption = "Source : Structure basée sur ESANE INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold"),
+        plot.caption = element_text(color = "#9ca3af", hjust = 0))
+```
+
+---
+
+## Cas 3 — Comparer la France avec d'autres pays européens
+
+### Problématique
+
+Comment se positionne l'économie française par rapport à ses voisins européens dans les secteurs clés (industrie, services ICT) ?
+
+### Source des données
+
+- **Eurostat SBS** : datasets `sbs_na_ind_r2` et `sbs_na_serv_r2`
+- Accès via le [Data Browser Eurostat](https://ec.europa.eu/eurostat/databrowser) ou l'API SDMX
+
+### Données comparatives illustratives
+
+```{r}
+#| label: cas3-europe
+
+# Données illustratives basées sur les publications Eurostat SBS
+# NACE C (Industrie manufacturière) — Année de référence 2021
+industrie_eu <- tibble(
+  pays = c("🇩🇪 Allemagne","🇫🇷 France","🇮🇹 Italie","🇪🇸 Espagne","🇵🇱 Pologne","🇳🇱 Pays-Bas"),
+  iso  = c("DE","FR","IT","ES","PL","NL"),
+  va_milliards  = c(740, 240, 270, 160, 115, 135),
+  emploi_milliers = c(10900, 3100, 5200, 2650, 3850, 1050),
+  nb_entreprises = c(285000, 200000, 450000, 220000, 370000, 90000)
+) |>
+  mutate(
+    productivite = round(va_milliards * 1000 / emploi_milliers, 1),
+    va_par_hab   = round(va_milliards * 1000 / c(84, 68, 59, 47, 38, 17.8), 1)
+  )
+
+kable(
+  industrie_eu |> select(-iso),
+  col.names = c("Pays","VA (Md€)","Emploi (k)","Nb entreprises","Productiv. (k€/emp)","VA/hab (€)"),
+  caption = "Industrie manufacturière (NACE C) — Comparaison européenne 2021 (données illustratives Eurostat SBS)",
+  format.args = list(big.mark = " ")
+)
+```
+
+```{r}
+#| label: fig-cas3-europe
+#| fig-cap: "Comparaison européenne — Industrie manufacturière : productivité et VA par habitant (données illustratives)"
+#| fig-height: 5
+#| fig-width: 9
+
+industrie_eu |>
+  pivot_longer(c(productivite, va_par_hab), names_to = "indicateur", values_to = "valeur") |>
+  mutate(indicateur = case_match(indicateur,
+    "productivite" ~ "Productivité (k€/emploi)",
+    "va_par_hab"   ~ "VA par habitant (€)"
+  )) |>
+  ggplot(aes(x = reorder(pays, valeur), y = valeur, fill = indicateur)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~indicateur, scales = "free_x") +
+  coord_flip() +
+  scale_fill_manual(values = c("#1a56db", "#0e9f6e")) +
+  labs(
+    title = "Industrie manufacturière — Comparaison européenne (NACE C)",
+    subtitle = "Données illustratives basées sur Eurostat SBS 2021",
+    x = NULL, y = NULL,
+    caption = "Source : Structure basée sur Eurostat SBS — données indicatives"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold", size = 12),
+        plot.caption = element_text(color = "#9ca3af", hjust = 0),
+        strip.text = element_text(face = "bold"))
+```
+
+---
+
+## Cas 4 — Analyser les établissements par région
+
+### Problématique
+
+La répartition géographique des établissements révèle des dynamiques territoriales importantes. Comment se distribuent les établissements industriels en France métropolitaine ?
+
+### Source des données
+
+- **Base SIRENE** (données SIRET par région et code NAF)
+- Disponible sur [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+
+### Données régionales illustratives
+
+```{r}
+#| label: cas4-regions
+
+# Données illustratives — Établissements industriels (NAF C) par région
+regions <- tibble(
+  region = c("Île-de-France","Auvergne-Rhône-Alpes","Hauts-de-France",
+             "Grand Est","Occitanie","Nouvelle-Aquitaine",
+             "Pays de la Loire","Bretagne","Normandie","Bourgogne-Franche-Comté"),
+  code   = c("11","84","32","44","76","75","52","53","28","27"),
+  nb_etab = c(28000, 35000, 18000, 20000, 15000,
+               14000, 16000, 10000, 10000, 9000),
+  emploi_ind_k = c(210, 320, 185, 190, 120, 110, 140, 100, 110, 95)
+) |>
+  mutate(
+    part_nationale = round(nb_etab / sum(nb_etab) * 100, 1),
+    emp_moy_etab   = round(emploi_ind_k * 1000 / nb_etab, 0)
+  )
+
+kable(
+  regions,
+  col.names = c("Région","Code","Étab. industriels","Emploi (k)","Part nationale (%)","Emploi moyen/étab."),
+  caption = "Établissements industriels (NAF C) par région — France (données illustratives basées sur SIRENE)",
+  format.args = list(big.mark = " ")
+)
+```
+
+```{r}
+#| label: fig-cas4-regions
+#| fig-cap: "Top 10 régions par nombre d'établissements industriels (données illustratives)"
+#| fig-height: 5
+#| fig-width: 8
+
+regions |>
+  arrange(desc(nb_etab)) |>
+  mutate(region = fct_inorder(region) |> fct_rev()) |>
+  ggplot(aes(x = region, y = nb_etab)) +
+  geom_col(fill = "#1a56db", alpha = 0.85) +
+  geom_col(aes(y = emploi_ind_k * 200), fill = "#0e9f6e", alpha = 0.7, width = 0.4) +
+  geom_text(aes(label = scales::number(nb_etab, big.mark = " ")),
+            hjust = -0.1, size = 3, color = "#374151") +
+  coord_flip() +
+  scale_y_continuous(
+    name = "Nb établissements (bleu)",
+    sec.axis = sec_axis(~./200, name = "Emploi industriel en k (vert)",
+                        labels = scales::number_format(big.mark = " "))
+  ) +
+  expand_limits(y = max(regions$nb_etab) * 1.2) +
+  labs(
+    title = "Établissements industriels et emploi par région",
+    subtitle = "France — données illustratives basées sur SIRENE (NAF Section C)",
+    x = NULL,
+    caption = "Source : Structure basée sur Base SIRENE INSEE — données indicatives"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(plot.title = element_text(face = "bold", size = 12),
+        plot.caption = element_text(color = "#9ca3af", hjust = 0))
+```
+
+---
+
+::: {.callout-tip}
+## ✅ Pour aller plus loin
+
+1. **Reproduire avec de vraies données** : téléchargez les fichiers officiels depuis les URLs indiquées
+2. **Automatiser** : créez des scripts R ou Python paramétrables par secteur ou région
+3. **Mettre à jour** : les données SIRENE sont disponibles chaque mois
+4. **Publier** : exportez vos analyses en HTML Quarto reproductible
+:::

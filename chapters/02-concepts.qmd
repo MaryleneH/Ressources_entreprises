@@ -1,0 +1,257 @@
+---
+title: "Unités statistiques et concepts clés"
+subtitle: "Entreprise, établissement, nomenclatures et indicateurs fondamentaux"
+description: "Maîtriser les définitions officielles des unités statistiques, les nomenclatures NAF/NACE et les principaux indicateurs économiques des entreprises."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [concepts, NAF, NACE, unités statistiques]
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Distinguer entreprise, unité légale, établissement et groupe d'entreprises
+- Expliquer le rôle des nomenclatures NAF (France) et NACE (Europe)
+- Identifier et calculer les principaux indicateurs : CA, VA, emploi, investissement
+- Lire et interpréter un code NAF à 5 positions
+:::
+
+## Les unités statistiques fondamentales
+
+La statistique d'entreprises repose sur une hiérarchie précise d'unités d'observation. Confondre ces unités est l'une des erreurs les plus fréquentes dans l'exploitation de données.
+
+```{mermaid}
+flowchart TB
+    G["🏢 Groupe d'entreprises\n(ex: Groupe Renault)"]
+    E["🏭 Entreprise\n(unité statistique)"]
+    UL["📄 Unité légale\n(entité juridique)"]
+    ET["📍 Établissement\n(unité géographique)"]
+
+    G -->|"contrôle"| E
+    E -->|"peut regrouper\nplusieurs"| UL
+    UL -->|"possède\nun ou plusieurs"| ET
+
+    style G fill:#dbeafe,stroke:#1e40af
+    style E fill:#d1fae5,stroke:#065f46
+    style UL fill:#fef3c7,stroke:#92400e
+    style ET fill:#fee2e2,stroke:#991b1b
+```
+
+### 🔬 L'entreprise (au sens statistique)
+
+::: {.callout-note}
+## 📖 Définition officielle — Entreprise
+
+L'**entreprise** est définie par la loi de modernisation de l'économie (LME, 2008) et par le règlement européen EBS comme :
+
+> « La plus petite combinaison d'unités légales qui constitue une unité organisationnelle de production de biens et de services jouissant d'une certaine autonomie de décision, notamment pour l'affectation de ses ressources courantes. »
+
+*Source : [Définition INSEE](https://www.insee.fr/fr/metadonnees/definition/c1496)*
+:::
+
+**Points clés :**
+- L'entreprise est l'**unité statistique de référence** pour ESANE et les SBS Eurostat
+- Une entreprise peut regrouper **plusieurs unités légales** (notamment dans les groupes)
+- Elle est identifiée par un **numéro SIREN** de 9 chiffres
+
+### 📄 L'unité légale
+
+L'**unité légale** est une entité juridiquement reconnue (personne morale ou physique) :
+- Identifiée par un **numéro SIREN** (9 chiffres)
+- Peut être une **société** (SA, SARL, SAS...), une **entreprise individuelle**, une **association**, etc.
+- Correspond à l'entité qui dépose ses comptes et paie ses impôts
+
+::: {.callout-warning}
+## ⚠️ Attention : entreprise ≠ unité légale
+
+Dans la plupart des cas (TPE, PME indépendantes), l'entreprise statistique coïncide avec l'unité légale. Mais dans les groupes d'entreprises, une entreprise statistique peut regrouper plusieurs unités légales. Cette distinction est fondamentale pour interpréter correctement les données.
+:::
+
+### 📍 L'établissement
+
+L'**établissement** est une unité géographique de production :
+
+- Identifié par un **numéro SIRET** = SIREN (9 chiffres) + NIC (5 chiffres)
+- Correspond à une **localisation précise** (adresse)
+- Une unité légale peut avoir **plusieurs établissements** (siège social + sites de production)
+- Le **siège social** est désigné par le NIC "00001"
+
+**Exemple :**
+```
+Société ACME SAS
+SIREN : 123 456 789
+
+Établissement Paris (siège)   : SIRET 123 456 789 00012
+Établissement Lyon (usine)    : SIRET 123 456 789 00045
+Établissement Marseille (dépôt): SIRET 123 456 789 00078
+```
+
+### 🏢 Le groupe d'entreprises
+
+Un **groupe d'entreprises** est un ensemble d'entreprises liées par des relations de contrôle capitalistique :
+
+- Une **société mère** contrôle (directement ou indirectement) des **filiales**
+- Le groupe peut s'étendre sur **plusieurs pays** (groupe multinational)
+- Les données des groupes sont compilées dans **LIFI** (Liaisons financières entre sociétés)
+
+::: {.callout-tip}
+## 💡 Pourquoi c'est important
+
+Les statistiques sectorielles peuvent varier significativement selon qu'on analyse les **unités légales** ou les **entreprises au sens LME**. Un grand groupe industriel peut regrouper des unités légales classées dans des secteurs différents.
+:::
+
+## Les nomenclatures d'activités
+
+### La NAF — Nomenclature d'Activités Française
+
+La **NAF** (Nomenclature d'Activités Française) est la classification officielle des activités économiques en France. Sa version actuelle, la **NAF rév. 2**, est en vigueur depuis le 1er janvier 2008.
+
+#### Structure de la NAF rév. 2
+
+Un code NAF comporte **5 positions** :
+
+```
+A   01   01.1   01.11   01.11Z
+│    │     │      │       └─ Sous-classe (lettre : A à Z)
+│    │     │      └───────── Classe (2 chiffres)
+│    │     └──────────────── Groupe (1 chiffre)
+│    └────────────────────── Division (2 chiffres)
+└─────────────────────────── Section (lettre : A à U)
+```
+
+#### Les 21 sections de la NAF
+
+| Section | Intitulé | Exemple de codes |
+|---------|----------|-----------------|
+| **A** | Agriculture, sylviculture et pêche | 01 à 03 |
+| **B** | Industries extractives | 05 à 09 |
+| **C** | Industrie manufacturière | 10 à 33 |
+| **D** | Production et distribution d'énergie | 35 |
+| **E** | Eau, assainissement, déchets | 36 à 39 |
+| **F** | Construction | 41 à 43 |
+| **G** | Commerce | 45 à 47 |
+| **H** | Transports et entreposage | 49 à 53 |
+| **I** | Hébergement et restauration | 55 à 56 |
+| **J** | Information et communication | 58 à 63 |
+| **K** | Activités financières et d'assurance | 64 à 66 |
+| **L** | Activités immobilières | 68 |
+| **M** | Activités spécialisées, scientifiques | 69 à 75 |
+| **N** | Activités de services administratifs | 77 à 82 |
+| **O** | Administration publique | 84 |
+| **P** | Enseignement | 85 |
+| **Q** | Santé humaine et action sociale | 86 à 88 |
+| **R** | Arts, spectacles et loisirs | 90 à 93 |
+| **S** | Autres activités de services | 94 à 96 |
+| **T** | Ménages en tant qu'employeurs | 97 à 98 |
+| **U** | Activités extra-territoriales | 99 |
+
+#### Exemples de lecture d'un code NAF
+
+| Code NAF | Signification |
+|----------|---------------|
+| `10.71C` | Boulangerie et boulangerie-pâtisserie |
+| `47.11B` | Commerce d'alimentation générale |
+| `62.01Z` | Programmation informatique |
+| `64.19Z` | Autres intermédiations monétaires |
+| `86.10Z` | Activités hospitalières |
+
+### La NACE — Nomenclature européenne des activités
+
+La **NACE** (Nomenclature statistique des Activités économiques dans la Communauté Européenne) est la version européenne de la classification. La NAF française lui est directement rattachée.
+
+#### Correspondance NAF ↔ NACE
+
+| Niveau | NACE rév. 2 | NAF rév. 2 |
+|--------|-------------|------------|
+| Section | 21 lettres (A-U) | 21 lettres (A-U) — identique |
+| Division | 88 codes (2 chiffres) | 88 codes — identique |
+| Groupe | 272 codes (3 positions) | 272 codes — identique |
+| Classe | 615 codes (4 positions) | 615 codes — identique |
+| **Sous-classe** | *Non applicable* | **731 codes** (5 positions) |
+
+::: {.callout-note}
+## 📌 Point méthodologique
+
+La NAF française ajoute un **niveau supplémentaire** (la sous-classe) par rapport à la NACE européenne. Cela permet une description plus fine de l'économie française, mais implique des agrégations pour les comparaisons internationales.
+
+Outil de correspondance : [https://www.insee.fr/fr/information/2406147](https://www.insee.fr/fr/information/2406147)
+:::
+
+## Les principaux indicateurs économiques
+
+### 💰 Le chiffre d'affaires (CA)
+
+::: {.callout-note}
+## 📖 Définition
+
+Le **chiffre d'affaires** est le montant total des ventes de biens et de services facturées par une entreprise au cours d'une période, **hors taxes**. Il constitue l'indicateur de taille le plus couramment utilisé.
+
+*Concept correspondant en anglais : Turnover*
+:::
+
+**Limites du CA comme indicateur :** Le CA est sensible aux prix et ne mesure pas la création de valeur réelle (une entreprise de négoce peut avoir un CA élevé avec une faible valeur ajoutée).
+
+### 📊 La valeur ajoutée (VA)
+
+::: {.callout-note}
+## 📖 Définition
+
+La **valeur ajoutée** mesure la richesse effectivement créée par l'entreprise. Elle se calcule comme :
+
+$$VA = \text{Production} - \text{Consommations intermédiaires}$$
+
+Ou encore :
+$$VA = \text{CA} + \text{Variation de stocks} - \text{Achats et consommations externes}$$
+:::
+
+La VA est ventilée entre :
+- Les **salariés** (masse salariale)
+- L'**État** (impôts et taxes)
+- Les **créanciers** (charges financières)
+- Les **actionnaires** (dividendes)
+- L'**entreprise** elle-même (autofinancement)
+
+### 👥 L'emploi salarié
+
+Dans les statistiques d'entreprises, l'emploi est mesuré par :
+
+| Indicateur | Description | Source |
+|------------|-------------|--------|
+| **Effectif au 31/12** | Salariés présents en fin d'année | DADS, DSN |
+| **Effectif moyen annuel (EMA)** | Moyenne des effectifs mensuels | ESANE |
+| **ETP** (Équivalent Temps Plein) | Conversion des temps partiels | ESANE, SBS |
+
+### 🏗️ L'investissement
+
+Dans les statistiques d'entreprises, l'investissement est mesuré par les **Investissements Bruts en Capital Fixe (IBCF)** (ou FBCF — Formation brute de capital fixe) :
+
+- Acquisitions d'**immobilisations corporelles** (terrains, bâtiments, machines)
+- Acquisitions d'**immobilisations incorporelles** (logiciels, brevets, R&D)
+- Sous déduction des **cessions** d'actifs
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. **Entreprise ≠ unité légale** : distinction fondamentale depuis la LME 2008
+2. **Établissement** = unité géographique, identifié par le SIRET
+3. La **NAF** (5 positions) est la version française de la **NACE** européenne (4 positions)
+4. Les 4 indicateurs clés : **CA, VA, emploi, investissement**
+5. Le **taux de valeur ajoutée** (VA/CA) varie fortement selon les secteurs
+:::
+
+## Ressources complémentaires
+
+- 📗 [Définitions INSEE — Entreprise](https://www.insee.fr/fr/metadonnees/definition/c1496)
+- 📗 [Définitions INSEE — Établissement](https://www.insee.fr/fr/metadonnees/definition/c1496)
+- 📘 [Nomenclature NAF rév. 2 — INSEE](https://www.insee.fr/fr/information/2406147)
+- 📘 [Correspondances NAF-NACE (INSEE)](https://www.insee.fr/fr/information/2579599)
+- 📙 [NACE Rev. 2 — Eurostat](https://ec.europa.eu/eurostat/documents/3859598/5902521/KS-RA-07-015-EN.PDF)
+- 📕 [Règlement EBS 2019/2152 — définitions des variables](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32019R2152)
+
+---
+
+*Chapitre précédent : [Module 01 — Introduction](01-introduction.qmd) | Chapitre suivant : [Module 03 — Sources françaises →](03-sources-francaises.qmd)*
