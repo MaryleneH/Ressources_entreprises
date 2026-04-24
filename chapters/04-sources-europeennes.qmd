@@ -253,3 +253,9 @@ D'après les données Eurostat SBS :
 ---
 
 *Chapitre précédent : [Module 03 — Sources françaises](03-sources-francaises.qmd) | Chapitre suivant : [Module 05 — Open Data →](05-opendata.qmd)*
+
+::: {.callout-note}
+## 🔗 Module connexe
+
+Vous utilisez Eurostat pour des comparaisons industrielles ou des analyses sectorielles à dimension européenne ? Le **[Module 08 — Insee, Eurostat & SSM Défense](insee-eurostat-ssm-defense.qmd)** montre comment ces données SBS peuvent être combinées avec les sources institutionnelles spécifiques à la défense.
+:::

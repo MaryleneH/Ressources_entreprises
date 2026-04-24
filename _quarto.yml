@@ -37,6 +37,9 @@ website:
             href: chapters/06-analyse-r.qmd
           - text: "Analyse avec Python"
             href: chapters/07-analyse-python.qmd
+          - text: "---"
+          - text: "🛡️ Insee, Eurostat & SSM Défense"
+            href: chapters/insee-eurostat-ssm-defense.qmd
       - text: "Cas pratiques"
         href: case-studies/index.qmd
       - text: "Exercices"
@@ -72,6 +75,8 @@ website:
               href: chapters/06-analyse-r.qmd
             - text: "7. Analyse Python"
               href: chapters/07-analyse-python.qmd
+            - text: "8. Insee, Eurostat & SSM Défense"
+              href: chapters/insee-eurostat-ssm-defense.qmd
         - section: "🔬 Pratique"
           contents:
             - text: "Cas pratiques"

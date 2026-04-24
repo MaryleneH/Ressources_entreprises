@@ -281,3 +281,9 @@ mindmap
 ---
 
 *Chapitre précédent : [Module 02 — Concepts](02-concepts.qmd) | Chapitre suivant : [Module 04 — Sources européennes →](04-sources-europeennes.qmd)*
+
+::: {.callout-note}
+## 🔗 Module connexe
+
+Vous exploitez les sources INSEE dans un contexte d'analyse sectorielle lié à la défense ou à la politique industrielle ? Découvrez comment articuler ces sources avec les travaux du SSM Défense dans le **[Module 08 — Insee, Eurostat & SSM Défense](insee-eurostat-ssm-defense.qmd)**.
+:::

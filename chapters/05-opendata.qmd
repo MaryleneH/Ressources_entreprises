@@ -275,3 +275,9 @@ Avant d'exploiter un jeu de données open data, vérifiez :
 ---
 
 *Chapitre précédent : [Module 04 — Eurostat](04-sources-europeennes.qmd) | Chapitre suivant : [Module 06 — Analyse R →](06-analyse-r.qmd)*
+
+::: {.callout-note}
+## 🔗 Module connexe
+
+Les données ouvertes de data.gouv.fr (SIRENE, DECP, BODACC) sont particulièrement utiles pour analyser des secteurs industriels spécifiques. Découvrez leur usage combiné avec les travaux institutionnels du SSM Défense dans le **[Module 08 — Insee, Eurostat & SSM Défense](insee-eurostat-ssm-defense.qmd)**.
+:::

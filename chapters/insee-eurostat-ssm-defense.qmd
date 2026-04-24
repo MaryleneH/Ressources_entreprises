@@ -1,0 +1,407 @@
+---
+title: "Insee, Eurostat et SSM Défense"
+subtitle: "Articulation des sources statistiques officielles pour l'analyse économique de la défense"
+description: "Comprendre comment les statistiques d'entreprises produites par l'Insee et Eurostat s'articulent avec les travaux statistiques du Service statistique ministériel de la Défense (SSM Défense), et comment croiser ces sources pour analyser les dimensions économiques de la défense nationale."
+author: "Formation StatEntreprises"
+date: last-modified
+categories: [SSM Défense, INSEE, Eurostat, statistiques sectorielles, défense]
+---
+
+::: {.learning-box}
+#### 🎯 Objectifs pédagogiques
+
+À l'issue de ce chapitre, vous serez capable de :
+
+- Situer le SSM Défense dans le Système statistique public français aux côtés de l'Insee et d'Eurostat
+- Identifier les liens entre les statistiques générales d'entreprises et les problématiques statistiques liées à la défense
+- Utiliser un tableau comparatif pour distinguer la portée, le niveau géographique et les usages de chaque source
+- Formuler des questions de recherche croisant statistiques d'entreprises et analyse économique de la défense
+- Éviter les confusions fréquentes entre données publiques et données à diffusion restreinte
+:::
+
+## 1. Contexte institutionnel
+
+### 1.1 Le Système statistique public français
+
+Le **Système statistique public (SSP)** français est coordonné par l'**Institut national de la statistique et des études économiques (Insee)**, qui en assure la cohérence méthodologique et la représentation auprès des instances européennes. Il regroupe l'Insee et un ensemble de **Services statistiques ministériels (SSM)**, chacun rattaché à un ministère et spécialisé dans un domaine thématique.
+
+```{mermaid}
+flowchart TD
+    A["🏛️ Autorité de la statistique publique\n(ASP — indépendante)"]
+    B["📊 INSEE\n(coordinateur du SSP)"]
+    C["🛡️ SSM Défense\n(Min. des Armées)"]
+    D["👷 DARES\n(Min. Travail)"]
+    E["🌿 SDES\n(Min. Écologie)"]
+    F["🏥 DREES\n(Min. Santé)"]
+    G["📚 SIES\n(Min. Enseignement sup.)"]
+    H["💶 DGFiP\n(Min. Finances)"]
+
+    A -->|"labellisation\ndes travaux"| B
+    A -->|"labellisation\ndes travaux"| C
+    A -->|"labellisation\ndes travaux"| D
+    B -->|"coordination\nméthodologique"| C
+    B -->|"coordination\nméthodologique"| D
+    B -->|"coordination\nméthodologique"| E
+    B -->|"coordination\nméthodologique"| F
+    B -->|"coordination\nméthodologique"| G
+    B -->|"coordination\nméthodologique"| H
+
+    style B fill:#dbeafe,stroke:#1e40af
+    style C fill:#fee2e2,stroke:#991b1b
+```
+
+::: {.callout-note}
+## 📖 La labellisation des travaux statistiques
+
+L'**Autorité de la statistique publique (ASP)**, instance indépendante, peut **labelliser** les publications statistiques publiques comme « statistique publique ». Cette labellisation garantit le respect des principes d'indépendance professionnelle, d'impartialité et de qualité définis par le Code des bonnes pratiques de la statistique européenne.
+
+*Source : [Loi n° 2008-696 du 15 juillet 2008](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019191227)*
+:::
+
+### 1.2 Le rôle de l'Insee dans le SSP
+
+L'**Institut national de la statistique et des études économiques (Insee)** est une direction générale du ministère chargé de l'Économie. Il est chargé de :
+
+- Produire des **statistiques nationales** harmonisées sur l'économie, la société et les entreprises
+- **Coordonner** le SSP et veiller à la cohérence des méthodes entre SSM
+- Transmettre à **Eurostat** les données françaises dans le cadre des règlements européens
+- Gérer les grands répertoires de référence : **SIRENE** (entreprises), **RIL** (logements), etc.
+
+Pour les statistiques d'entreprises, l'Insee produit notamment **ESANE** (statistiques structurelles annuelles), les données de **démographie d'entreprises** et les **indices conjoncturels de chiffre d'affaires**.
+
+*Source : [INSEE — Qui sommes-nous ?](https://www.insee.fr/fr/information/1300395)*
+
+### 1.3 Le rôle d'Eurostat dans l'harmonisation européenne
+
+**Eurostat**, l'office statistique de l'Union européenne, harmonise les statistiques des États membres grâce à des règlements contraignants. Pour les entreprises, le cadre réglementaire principal est le **règlement EBS 2019/2152** (European Business Statistics), qui définit les variables à produire, les nomenclatures à utiliser (NACE) et les délais de transmission.
+
+Eurostat publie les **Structural Business Statistics (SBS)** permettant des comparaisons entre les 27 États membres sur des indicateurs comme le chiffre d'affaires, la valeur ajoutée, l'emploi et l'investissement.
+
+*Source : [Eurostat — About us](https://ec.europa.eu/eurostat/about/overview)*
+
+### 1.4 Le SSM Défense — Service statistique ministériel de la Défense
+
+::: {.callout-note}
+## 📖 Présentation officielle du SSM Défense
+
+Le **Service statistique ministériel de la Défense (SSM Défense)** est le service statistique ministériel rattaché au **ministère des Armées**. Il est chargé de produire des données officielles sur les ressources humaines, l'organisation et les activités relevant du périmètre de la défense nationale.
+
+Ses missions principales comprennent :
+- La production de **statistiques sur les personnels** (militaires et civils de la défense)
+- La publication de **bilans sociaux** et d'études sur les conditions d'emploi dans les armées
+- La contribution à la connaissance des **dimensions économiques** liées à la défense, notamment dans le cadre de la **base de défense** et des territoires
+
+*Source officielle : [SSM Défense — Qui sommes-nous ?](https://www.defense.gouv.fr/ssm/qui-sommes-nous)*
+:::
+
+Le SSM Défense opère dans le respect des principes du SSP, ce qui implique :
+- L'**indépendance professionnelle** dans la production des statistiques
+- L'utilisation de **méthodes harmonisées** avec celles de l'Insee
+- La **transparence** sur les sources, méthodes et limites des données publiées
+
+::: {.callout-warning}
+## ⚠️ Périmètre et accessibilité des données
+
+Une partie importante des données relatives à la défense (effectifs détaillés, équipements, capacités opérationnelles) est **classifiée** ou à **diffusion restreinte**, conformément aux exigences de sécurité nationale. Ce module se concentre exclusivement sur les **données publiques** et sur les possibilités d'articulation avec les statistiques d'entreprises accessibles au grand public.
+:::
+
+---
+
+## 2. Liens entre statistiques d'entreprises et analyses liées à la défense
+
+La défense nationale mobilise des ressources économiques considérables. Les **statistiques générales d'entreprises** peuvent être mobilisées pour analyser plusieurs dimensions de cette réalité économique, **en complément** des données spécifiques du SSM Défense.
+
+### 2.1 Base industrielle et technologique de défense (BITD)
+
+La **Base industrielle et technologique de défense (BITD)** désigne l'ensemble des entreprises qui conçoivent, développent et produisent des équipements militaires. Ces entreprises sont présentes dans de nombreux **secteurs NAF**, notamment :
+
+| Secteur NAF | Code | Pertinence pour la défense |
+|-------------|------|---------------------------|
+| Fabrication d'armes et munitions | 25.40Z | Cœur de la BITD |
+| Construction navale | 30.11Z | Navires militaires |
+| Construction aéronautique et spatiale | 30.30Z | Avions militaires, satellites |
+| Fabrication d'équipements de communication | 26.30Z | Systèmes de communication militaires |
+| Fabrication de moteurs militaires | 28.11Z | Motoristes défense |
+| Activités de R&D | 72.19Z | Recherche défense (DGA, CEA, ONERA) |
+| Ingénierie et études techniques | 71.12B | Bureaux d'études défense |
+
+::: {.callout-note}
+## 📌 Utilisation analytique possible (non une donnée vérifiée)
+
+Les données ESANE (INSEE) sur ces codes NAF permettent d'estimer la **taille économique** des secteurs associés à la défense (CA, VA, emploi). Cependant, **ces secteurs incluent des activités civiles** — la part exactement liée à la défense ne peut être isolée à partir des seules statistiques NAF générales.
+
+Pour des données spécifiques sur les entreprises de la BITD, le **ministère des Armées** publie chaque année le rapport sur les exportations d'armements et d'autres analyses sectorielles.
+:::
+
+### 2.2 Emploi lié à la défense
+
+Le SSM Défense est la source de référence pour les **personnels militaires et civils des armées**. En complément, les statistiques générales de l'emploi (DARES, INSEE) permettent d'analyser :
+
+- L'emploi dans les **secteurs industriels de défense** (salariés du privé travaillant pour la BITD)
+- La **répartition territoriale** des emplois liés aux bases militaires et aux industries de défense
+- Les **conditions d'emploi** dans les secteurs industriels concernés (qualifications, rémunérations)
+
+::: {.callout-tip}
+## 💡 Usage pédagogique
+
+Les statistiques ESANE sur le secteur « Fabrication d'armes et munitions » (NAF 25.40Z) donnent un **premier aperçu** du tissu d'entreprises, du CA et de l'emploi salarié dans ce secteur. Elles ne permettent pas d'isoler la composante « marché défense » de la composante civile (police, sécurité privée, chasse, exportations civiles).
+:::
+
+### 2.3 Production industrielle et marchés publics de défense
+
+Les **marchés publics de défense** représentent une part significative des achats de l'État. Les statistiques sur l'emploi, le chiffre d'affaires et la valeur ajoutée des secteurs concernés permettent de contextualiser ces commandes publiques.
+
+Des données sur les **marchés publics** sont disponibles sur **data.gouv.fr** (données DECP — Données essentielles de la commande publique) et permettent d'identifier les montants contractuels entre l'État (dont le ministère des Armées) et les entreprises privées.
+
+### 2.4 Innovation et R&D
+
+La défense est un secteur à forte intensité de R&D. Eurostat publie des statistiques harmonisées sur les **dépenses de R&D des entreprises** (dataset `rd_e_berdindr2`), ventilées par secteur d'activité et par source de financement, qui permettent d'identifier la part de R&D co-financée par la puissance publique dans des secteurs liés à la défense.
+
+### 2.5 Analyse territoriale
+
+Les **bases de défense** (formations militaires) constituent des pôles économiques locaux importants dans certains territoires. Les statistiques d'établissements issues de SIRENE et les données ESANE peuvent être mobilisées pour analyser l'environnement économique local (tissu d'entreprises sous-traitantes, emploi indirect, dynamiques territoriales).
+
+### 2.6 Chaînes de valeur et sous-traitance
+
+Les données sur les **groupes d'entreprises** (source LIFI de l'INSEE) et les **échanges inter-entreprises** permettent d'explorer les chaînes de valeur industrielles, y compris dans les secteurs d'équipements à double usage civil-militaire.
+
+---
+
+## 3. Tableau comparatif des sources
+
+Le tableau suivant compare les trois sources abordées dans ce module :
+
+| Critère | **Insee** | **Eurostat** | **SSM Défense** |
+|---------|-----------|-------------|-----------------|
+| **Institution** | Institut national de la statistique et des études économiques | Office statistique de l'Union européenne | Service statistique ministériel du ministère des Armées |
+| **Périmètre thématique** | Économie nationale : entreprises, ménages, emploi, prix | Statistiques harmonisées des 27 États membres de l'UE | Personnels militaires et civils de la défense ; dimension économique de la défense |
+| **Niveau géographique** | National, régional, départemental | UE-27, comparaisons entre États membres | National (avec focus sur les territoires de défense) |
+| **Type de données** | Données administratives (fiscales, sociales), enquêtes statistiques, répertoires | Données compilées à partir des statistiques nationales, harmonisées | Statistiques administratives sur les personnels ; publications sectorielles sur la défense |
+| **Accès principal** | [insee.fr](https://www.insee.fr), API INSEE, data.gouv.fr | [Eurostat Data Browser](https://ec.europa.eu/eurostat/databrowser) | [defense.gouv.fr/ssm](https://www.defense.gouv.fr/ssm) |
+| **Exemples d'usages pour la défense** | Statistiques ESANE sur les secteurs industriels BITD (NAF 25.40, 30.11, 30.30) ; données SIRENE sur les établissements | Comparaisons européennes des industries de défense ; données R&D par secteur | Effectifs militaires et civils de la défense ; bilans sociaux ; études territoriales |
+| **Principales limites** | Ne distingue pas la part militaire dans les secteurs à double usage ; code NAF le plus fin = sous-classe (5 positions) | Données globales par secteur NACE ; pas de ventilation civil/militaire | Données classifiées ou à diffusion restreinte pour les capacités opérationnelles ; périmètre limité aux personnels |
+| **Source de référence** | [Portail entreprises INSEE](https://www.insee.fr/fr/statistiques?debut=0&theme=6) | [SBS Eurostat](https://ec.europa.eu/eurostat/web/structural-business-statistics) | [SSM Défense — Qui sommes-nous](https://www.defense.gouv.fr/ssm/qui-sommes-nous) |
+
+::: {.callout-note}
+## 📌 Précision sur le tableau
+
+Ce tableau décrit les usages **potentiels** des données générales d'entreprises pour des analyses liées à la défense. Il ne préjuge pas de l'existence de données statistiques officielles publiques spécifiquement orientées « défense et entreprises » : la production du SSM Défense porte principalement sur les personnels. Pour les dimensions industrielles, le **ministère des Armées** publie des rapports annuels spécifiques (ex : rapport au Parlement sur les exportations d'armements).
+:::
+
+---
+
+## 4. Objectifs d'apprentissage pratiques
+
+### 4.1 Combiner les sources institutionnelles
+
+Pour mener une analyse économique liée à la défense, il est utile d'articuler plusieurs niveaux de sources :
+
+```{mermaid}
+flowchart LR
+    A["📊 INSEE / Eurostat\nStatistiques générales\nd'entreprises"] --> D["🔍 Analyse\néconomique\ndéfense"]
+    B["🛡️ SSM Défense\nStatistiques personnels\net bilans sociaux"] --> D
+    C["📋 Min. des Armées\nRapports sectoriels\nMarchés publics DECP"] --> D
+    D --> E["Questions\nde recherche\nrobustes"]
+```
+
+**Règle de bonne pratique** : ne jamais utiliser une seule source ; toujours indiquer explicitement quelles données proviennent de statistiques générales (applicables à l'ensemble d'un secteur) et quelles données proviennent de sources spécifiques défense.
+
+### 4.2 Distinguer les perspectives nationale, européenne et sectorielle
+
+| Perspective | Source principale | Ce qu'elle apporte |
+|-------------|------------------|-------------------|
+| **Nationale** | INSEE (ESANE, SIRENE) | Structure du tissu industriel français, emploi, VA par secteur NAF |
+| **Européenne** | Eurostat (SBS, R&D) | Comparaison avec les industries de défense d'autres pays de l'UE |
+| **Sectorielle spécifique** | SSM Défense, rapports Min. Armées | Données sur les personnels, les territoires de défense, les exportations |
+
+### 4.3 Exemples de questions de recherche
+
+Voici des exemples de questions qui peuvent être abordées en croisant statistiques générales d'entreprises et données de défense :
+
+::: {.callout-tip}
+## 💡 Exemples de questions de recherche
+
+**Questions exploitables avec les données INSEE / ESANE :**
+1. Quelle est la part de la valeur ajoutée du secteur « Fabrication d'armes et munitions » (NAF 25.40Z) dans la valeur ajoutée totale de l'industrie manufacturière française ?
+2. Comment évolue l'emploi salarié dans les secteurs aéronautique et naval en France depuis 2010 ?
+3. Quelle est la concentration géographique (régionale) des établissements du secteur « Construction aéronautique » (NAF 30.30Z) ?
+
+**Questions nécessitant des sources spécifiques défense :**
+4. Quelle est la part du budget des armées consacrée aux achats auprès d'entreprises privées ?
+5. Combien d'entreprises fournissent chaque année des équipements au ministère des Armées (données DECP) ?
+
+**Questions de comparaison européenne avec Eurostat :**
+6. Comment se situe la France parmi les pays de l'UE en termes de valeur ajoutée dans l'industrie aéronautique et spatiale (NACE 30.3) ?
+7. Quelle est la part des dépenses de R&D des entreprises co-financées par les administrations publiques dans les secteurs à double usage (NACE C + M72) ?
+:::
+
+---
+
+## 5. Exercices
+
+### Exercice 5.1 — Exercice conceptuel : identifier la bonne source
+
+::: {.exercise-box}
+<span class="difficulty-badge beginner">Débutant</span>
+
+**Pour chaque question ci-dessous, identifiez la source la plus appropriée parmi : INSEE (ESANE), Eurostat (SBS), SSM Défense, data.gouv.fr (DECP marchés publics), ou Rapport annuel du ministère des Armées.**
+
+1. Vous voulez connaître le nombre d'entreprises actives en France ayant pour activité principale la fabrication d'armements (NAF 25.40Z).
+2. Vous souhaitez savoir combien de militaires et civils travaillent pour le ministère des Armées en France.
+3. Vous voulez comparer le chiffre d'affaires du secteur aéronautique et spatial (NACE 30.3) entre la France, l'Allemagne et l'Espagne.
+4. Vous cherchez à identifier les contrats de marchés publics attribués par le ministère des Armées à des entreprises privées en 2023.
+5. Vous souhaitez savoir combien d'États membres de l'UE publient des statistiques harmonisées sur les dépenses de R&D dans le secteur aéronautique.
+
+<details>
+<summary>👁️ Voir les réponses</summary>
+
+1. **INSEE — ESANE** et/ou **SIRENE** : le répertoire SIRENE recense tous les établissements actifs par code NAF ; ESANE fournit des statistiques économiques (CA, VA, emploi) par secteur, dont le NAF 25.40Z.
+
+2. **SSM Défense** : la production principale du SSM Défense porte sur les personnels militaires et civils du ministère des Armées. Le site [defense.gouv.fr/ssm](https://www.defense.gouv.fr/ssm) présente ces données dans les publications officielles du service.
+
+3. **Eurostat — SBS** : le dataset `sbs_na_ind_r2` ou `sbs_sc_ind_r2` d'Eurostat permet de comparer les statistiques structurelles par secteur NACE entre pays. La classe NACE 30.3 correspond à la construction aéronautique et spatiale.
+
+4. **data.gouv.fr — DECP** (Données essentielles de la commande publique) : les marchés publics de l'État, dont ceux du ministère des Armées, sont publiés en open data sur data.gouv.fr conformément aux obligations légales de transparence.
+
+5. **Eurostat — R&D statistics** : le dataset `rd_e_berdindr2` d'Eurostat fournit les dépenses de R&D des entreprises par secteur et par source de financement pour l'ensemble des États membres ayant transmis ces données.
+
+</details>
+:::
+
+### Exercice 5.2 — Comparaison de sources : remplir le tableau
+
+::: {.exercise-box}
+<span class="difficulty-badge intermediate">Intermédiaire</span>
+
+**Complétez le tableau suivant** en indiquant, pour chaque combinaison source / dimension d'analyse, si la source est **directement utilisable** ✅, **utilisable avec précautions** ⚠️, ou **non disponible publiquement** ❌ pour l'analyse économique de la défense.
+
+| Dimension d'analyse | INSEE (ESANE/SIRENE) | Eurostat (SBS) | SSM Défense |
+|---------------------|---------------------|----------------|-------------|
+| Nombre d'entreprises du secteur armement | ? | ? | ? |
+| Emploi salarié dans l'industrie aéronautique | ? | ? | ? |
+| Effectifs militaires des armées françaises | ? | ? | ? |
+| Comparaison européenne de la VA aéronautique | ? | ? | ? |
+| Localisation des établissements industriels de défense | ? | ? | ? |
+| Dépenses de R&D co-financées par la défense | ? | ? | ? |
+
+<details>
+<summary>👁️ Voir les réponses commentées</summary>
+
+| Dimension | INSEE (ESANE/SIRENE) | Eurostat (SBS) | SSM Défense |
+|-----------|---------------------|----------------|-------------|
+| Nombre d'entreprises du secteur armement | ✅ (code NAF 25.40Z dans SIRENE/ESANE, mais inclut civil) | ⚠️ (NACE 25.4, données globales) | ❌ (non publique à ce niveau de détail) |
+| Emploi salarié dans l'industrie aéronautique | ✅ (ESANE, NAF 30.30Z, mais civil + militaire mélangés) | ⚠️ (SBS, NACE 30.3, données globales) | ❌ (hors périmètre SSM Défense) |
+| Effectifs militaires des armées | ❌ (hors périmètre INSEE) | ❌ (hors périmètre Eurostat) | ✅ (source principale, données publiées) |
+| Comparaison européenne VA aéronautique | ⚠️ (France seulement) | ✅ (SBS NACE 30.3, comparaison UE-27) | ❌ (périmètre national uniquement) |
+| Localisation établissements industriels | ✅ (SIRENE par commune, code NAF) | ❌ (pas de données géographiques infra-nationales) | ⚠️ (publié pour certaines bases de défense) |
+| Dépenses R&D co-financées défense | ⚠️ (R&D par secteur sans ventilation civil/militaire) | ⚠️ (rd_e_berdindr2 : R&D des entreprises par source de financement) | ❌ (non publique à ce niveau de détail) |
+
+**Commentaire pédagogique :** Aucune des trois sources ne permet seule d'analyser l'ensemble des dimensions économiques de la défense. C'est précisément pourquoi la **combinaison de sources** est une compétence clé.
+
+</details>
+:::
+
+### Exercice 5.3 — Cas appliqué : analyser le secteur de la construction aéronautique et spatiale
+
+::: {.exercise-box}
+<span class="difficulty-badge advanced">Avancé</span>
+
+**Objectif :** Produire une fiche sectorielle sur le secteur « Construction aéronautique et spatiale » (NAF 30.30Z / NACE 30.3) en France, en mobilisant les statistiques d'entreprises disponibles publiquement.
+
+**Étapes à réaliser :**
+
+**Étape 1 — Sources à mobiliser**
+
+Identifiez les jeux de données pertinents pour chacune des dimensions suivantes :
+
+| Dimension | Source | Jeu de données / URL |
+|-----------|--------|---------------------|
+| Nombre d'établissements en France | SIRENE / data.gouv.fr | Base SIRENE — filtrer sur NAF 30.30Z |
+| CA, VA, emploi annuels (France) | INSEE ESANE | [insee.fr/statistiques/2045265](https://www.insee.fr/fr/statistiques/2045265) |
+| Comparaison européenne CA et VA | Eurostat SBS | Dataset `sbs_na_ind_r2`, NACE 30.3 |
+| Dépenses R&D du secteur | Eurostat | Dataset `rd_e_berdindr2`, NACE C30 |
+
+**Étape 2 — Questions d'analyse**
+
+1. D'après les données ESANE disponibles, quel est le **taux de valeur ajoutée** (VA/CA) du secteur 30.30Z ? Le comparez-vous à la moyenne de l'industrie manufacturière (section C) ?
+2. D'après Eurostat SBS, comment se positionne la France par rapport à l'Allemagne et au Royaume-Uni (données historiques avant Brexit) pour la VA du secteur NACE 30.3 ?
+3. En utilisant la Base SIRENE téléchargeable sur data.gouv.fr, dans quelles régions françaises les établissements du secteur 30.30Z sont-ils les plus concentrés ?
+
+**Étape 3 — Code R (squelette)**
+
+```{r}
+#| label: analyse-aeronautique
+#| eval: false
+
+library(tidyverse)
+
+# Étape 3a : Charger les données ESANE depuis insee.fr (après téléchargement)
+# Fichier à télécharger sur : https://www.insee.fr/fr/statistiques/2045265
+# esane <- read_csv("data/esane_na_2022.csv")
+
+# Étape 3b : Filtrer le secteur aéronautique
+# secteur_aeronaut <- esane |>
+#   filter(code_naf == "30.30Z") |>
+#   mutate(taux_va = va_milliards / ca_milliards * 100)
+
+# Étape 3c : Comparer avec la moyenne industrie manufacturière (section C)
+# moy_c <- esane |>
+#   filter(section == "C") |>
+#   summarise(taux_va_moy = mean(va_milliards / ca_milliards * 100, na.rm = TRUE))
+
+# Étape 3d : Localisation via SIRENE
+# sirene <- read_csv("data/StockEtablissement_utf8.csv",
+#                    col_select = c("siret", "activitePrincipaleEtablissement",
+#                                   "codePostalEtablissement", "libelleCommuneEtablissement"))
+# aero_etab <- sirene |>
+#   filter(activitePrincipaleEtablissement == "30.30Z")
+
+# count(aero_etab, substr(codePostalEtablissement, 1, 2), sort = TRUE) |> head(10)
+```
+
+**Ce que vous devriez obtenir :**
+- Un tableau récapitulatif des indicateurs clés du secteur 30.30Z
+- Un graphique comparant la France avec 2-3 autres pays européens sur la VA NACE 30.3
+- Une carte ou un tableau des régions françaises les plus représentées
+
+::: {.callout-warning}
+## ⚠️ Rappel sur les limites
+
+Les statistiques générales d'entreprises ne permettent pas de distinguer la **part militaire** de la **part civile** du chiffre d'affaires d'un constructeur aéronautique. Pour les données spécifiques à la défense (contrats DGA, exportations d'armements), référez-vous aux publications officielles du ministère des Armées.
+:::
+:::
+
+---
+
+::: {.callout-tip}
+## ✅ Points clés à retenir
+
+1. Le **SSM Défense** est le service statistique officiel du ministère des Armées, membre du Système statistique public français coordonné par l'**INSEE**.
+2. Les statistiques générales d'entreprises (ESANE, SBS Eurostat) peuvent **contextualiser** économiquement des secteurs industriels liés à la défense, mais ne distinguent pas les parts civiles et militaires.
+3. La **BITD** (Base industrielle et technologique de défense) couvre plusieurs secteurs NAF : 25.40Z, 30.11Z, 30.30Z, 26.30Z, 72.19Z et d'autres.
+4. Pour une analyse rigoureuse, il faut **combiner** les trois niveaux de sources : national (INSEE), européen (Eurostat), et sectoriel spécifique (SSM Défense, rapports ministériels).
+5. Les données à **diffusion restreinte** (capacités militaires, détails contractuels classifiés) ne sont pas incluses dans les statistiques publiques accessibles via insee.fr, Eurostat ou data.gouv.fr.
+:::
+
+## Ressources complémentaires
+
+### Sources institutionnelles officielles
+
+- 🔗 [SSM Défense — Qui sommes-nous](https://www.defense.gouv.fr/ssm/qui-sommes-nous) *(source de référence pour ce module)*
+- 🔗 [Portail Entreprises — INSEE](https://www.insee.fr/fr/statistiques?debut=0&theme=6)
+- 🔗 [ESANE — Résultats sectoriels par NAF](https://www.insee.fr/fr/statistiques/2045265)
+- 🔗 [Eurostat — Structural Business Statistics](https://ec.europa.eu/eurostat/web/structural-business-statistics)
+- 🔗 [Eurostat — R&D des entreprises (rd_e_berdindr2)](https://ec.europa.eu/eurostat/databrowser/view/rd_e_berdindr2)
+- 🔗 [data.gouv.fr — Données essentielles commande publique (DECP)](https://www.data.gouv.fr/fr/datasets/donnees-essentielles-de-la-commande-publique-fichiers-consolides/)
+- 🔗 [Système statistique public — Présentation INSEE](https://www.insee.fr/fr/information/1302194)
+
+### Pour aller plus loin
+
+- 🔗 [Autorité de la statistique publique (ASP)](https://www.asp-statistique-publique.fr)
+- 🔗 [Code des bonnes pratiques de la statistique européenne (Eurostat)](https://ec.europa.eu/eurostat/web/quality/european-quality-standards/european-statistics-code-of-practice)
+- 🔗 [Rapport au Parlement sur les exportations d'armements (Min. Armées)](https://www.defense.gouv.fr/dga/espace-presse-la-dga/actualites-dga/rapport-parlement-exportations-armement)
+- 🔗 [Base SIRENE sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/)
+
+---
+
+*Chapitres connexes : [Module 03 — Sources françaises (INSEE)](03-sources-francaises.qmd) · [Module 04 — Sources européennes (Eurostat)](04-sources-europeennes.qmd) · [Module 05 — Open Data & data.gouv.fr](05-opendata.qmd)*

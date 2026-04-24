@@ -38,7 +38,7 @@ sidebar: false
   <div class="container">
     <div class="stat-counters">
       <div class="stat-item">
-        <div class="stat-number">7</div>
+        <div class="stat-number">8</div>
         <div class="stat-label">Chapitres de cours</div>
       </div>
       <div class="stat-item">
@@ -184,6 +184,19 @@ Directions stratégie, marketing, veille concurrentielle
       <span class="tag">Python</span>
       <span class="tag">pandas</span>
       <span class="tag">plotly</span>
+    </div>
+    <span class="card-link">Commencer →</span>
+  </a>
+
+  <a href="chapters/insee-eurostat-ssm-defense.qmd" class="module-card" style="text-decoration:none;color:inherit;">
+    <span class="card-icon">🛡️</span>
+    <div class="card-number">Module 08</div>
+    <h3>Insee, Eurostat &amp; SSM Défense</h3>
+    <p>Articuler les statistiques officielles d'entreprises avec les travaux du Service statistique ministériel de la Défense : BITD, emploi, R&amp;D, territoires.</p>
+    <div class="card-tags">
+      <span class="tag">SSM Défense</span>
+      <span class="tag">BITD</span>
+      <span class="tag">Croisement sources</span>
     </div>
     <span class="card-link">Commencer →</span>
   </a>
