@@ -53,7 +53,7 @@ jobs:
       # 5. Install Python packages
       - name: Install Python packages
         run: |
-          pip install pandas numpy matplotlib plotly requests
+          pip install jupyter pandas numpy matplotlib plotly requests
 
       # 6. Install Quarto
       - name: Install Quarto
