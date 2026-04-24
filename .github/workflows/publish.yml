@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # 1. Checkout the repository
@@ -71,7 +71,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     environment:
       name: github-pages
