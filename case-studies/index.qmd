@@ -88,7 +88,10 @@ ggplot(demo_long, aes(x = annee, y = nombre, fill = categorie)) +
             aes(color = categorie, group = 1), linewidth = 1.5) +
   geom_point(data = filter(demo_long, categorie == "Défaillances"),
              aes(color = categorie), size = 3) +
-  scale_fill_manual(values = c("#bfdbfe", "#1a56db")) +
+  scale_fill_manual(
+    values = c("Créations — Micro-entreprises" = "#bfdbfe", "Créations — Autres" = "#1a56db"),
+    limits = c("Créations — Micro-entreprises", "Créations — Autres")
+  ) +
   scale_color_manual(values = c("#dc2626")) +
   scale_y_continuous(labels = scales::number_format(big.mark = " ", scale = 1e-3, suffix = "k")) +
   scale_x_continuous(breaks = 2019:2023) +
